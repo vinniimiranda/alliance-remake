@@ -18,7 +18,7 @@
               <div class="col">
                 <q-field error-label="Please type a valid email">
                   <q-input
-                    color="info"
+                    color="secondary"
                     v-model="email"
                     type="email"
                     suffix="wtt.com.br"
@@ -32,7 +32,7 @@
               <div class="col">
                 <q-field>
                   <q-input
-                    color="info"
+                    color="secondary"
                     v-model="password"
                     type="password"
                     float-label="Password"
@@ -47,7 +47,7 @@
               <div class="col">
                 <q-field error-label="We need a valid email">
                   <q-select
-                    color="info"
+                    color="secondary"
                     float-label="Workstation"
                     required
                     v-model="workStation"
@@ -62,7 +62,7 @@
               <div class="col-12">
                 <q-field>
                   <q-btn
-                    color="info"
+                    color="secondary"
                     size="lg"
                     :loading="buttonLoading"
                     align="center"

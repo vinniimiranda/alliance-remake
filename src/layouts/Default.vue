@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-layout-header>
-      <q-toolbar color="light-green-8" :inverted="$q.theme === 'ios'">
+      <q-toolbar color="secondary" glossy :inverted="$q.theme === 'ios'">
         <q-btn flat dense round @click="leftMenu = !leftMenu" aria-label="Menu" icon="menu"/>
 
         <q-toolbar-title>CLÍNICA MODELO II - MEDICINA DIAGNÓSTICA</q-toolbar-title>

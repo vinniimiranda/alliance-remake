@@ -8,6 +8,9 @@
       row-key="name"
       :filter="filter"
       :loading="loading"
+      loading-label="Carregando dados"
+      rows-per-page-label="Resultados por página"
+      align="justify"
     >
       <template slot="top-left">
         <q-search hide-underline v-model="filter" placeholder="Digite sua pesquisa"/>
