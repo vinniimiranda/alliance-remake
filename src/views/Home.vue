@@ -1,191 +1,193 @@
 <template>
-<div class="row">
-  <q-page >
-    <q-table
-      grid
-      :data="tableData"
-      :columns="columns"
-      row-key="name"
-      :filter="filter"
-      :loading="loading"
-      loading-label="Carregando dados"
-      rows-per-page-label="Resultados por página"
-      align="justify"
-    >
-      <template slot="top-left">
-        <q-search hide-underline v-model="filter" placeholder="Digite sua pesquisa"/>
-      </template>
-      <template slot="body" slot-scope="props">
-        <q-tr :props="props" @dblclick.native="openDetail(props.row.id)" >
-          <q-td key="desc" :props="props">
-            <q-checkbox
-              color="info"
-              v-model="props.expand"
-              checked-icon="keyboard_arrow_up"
-              unchecked-icon="keyboard_arrow_down"
-              class="q-mr-md"
-              @click.native="linha($event)"
-            />
-          </q-td>
-          <q-td key="id" :props="props">{{ props.row.id }}</q-td>
-          <q-td key="paciente" :props="props">{{ props.row.name }}</q-td>
-          <q-td key="sexo" :props="props">{{ props.row.gender }}</q-td>
-          <q-td key="nascimento" :props="props">{{ props.row.birth }}</q-td>
-          <q-td key="origem" :props="props">{{ props.row.origin }}</q-td>
-          <q-td key="descricao" :props="props">{{ props.row.description }}</q-td>
-          <q-td key="mod" :props="props">{{ props.row.mod }}</q-td>
-          <q-td key="dataExame" :props="props">{{ props.row.date }}</q-td>
-          <q-td key="status" :props="props">{{ props.row.status }}</q-td>
-        </q-tr>
-        <q-tr v-show="props.expand" :props="props">
-          <q-td colspan="100%">
-            <div class="row gutter-sm">
-              <div class="col-6">
-                <q-card color="dark">
-                  <q-card-separator/>
-                  <q-card-main>
-                    <div class="row">
-                      <div class="col-12">
-                        <q-input
-                          :value="props.row.id + ' - ' + props.row.name "
-                          stack-label="Paciente"
-                          :before="[{icon: 'person', handler () {}}]"
-                          readonly
-                          dark
-                        />
+  <div class="row home">
+    <q-page>
+      <q-table
+        grid
+        :data="tableData"
+        :columns="columns"
+        row-key="name"
+        :filter="filter"
+        :loading="loading"
+        loading-label="Carregando dados"
+        rows-per-page-label="Resultados por página"
+        no-results-label="Nenhum resultado encontrado"
+        no-data-label="Sem dados para mostrar"
+        align="justify"
+      >
+        <template slot="top-left">
+          <q-search hide-underline v-model="filter" placeholder="Digite sua pesquisa"/>
+        </template>
+        <template slot="body" slot-scope="props">
+          <q-tr :props="props" @dblclick.native="openDetail(props.row.id)">
+            <q-td key="desc" :props="props">
+              <q-checkbox
+                color="info"
+                v-model="props.expand"
+                checked-icon="keyboard_arrow_up"
+                unchecked-icon="keyboard_arrow_down"
+                class="q-mr-md"
+                @click.native="linha($event)"
+              />
+            </q-td>
+            <q-td key="id" :props="props">{{ props.row.id }}</q-td>
+            <q-td key="paciente" :props="props">{{ props.row.name }}</q-td>
+            <q-td key="sexo" :props="props">{{ props.row.gender }}</q-td>
+            <q-td key="nascimento" :props="props">{{ props.row.birth }}</q-td>
+            <q-td key="origem" :props="props">{{ props.row.origin }}</q-td>
+            <q-td key="descricao" :props="props">{{ props.row.description }}</q-td>
+            <q-td key="mod" :props="props">{{ props.row.mod }}</q-td>
+            <q-td key="dataExame" :props="props">{{ props.row.date }}</q-td>
+            <q-td key="status" :props="props">{{ props.row.status }}</q-td>
+          </q-tr>
+          <q-tr v-show="props.expand" :props="props">
+            <q-td colspan="100%">
+              <div class="row gutter-sm">
+                <div class="col-6">
+                  <q-card color="secondary">
+                    <q-card-separator/>
+                    <q-card-main>
+                      <div class="row">
+                        <div class="col-12">
+                          <q-input
+                            :value="props.row.id + ' - ' + props.row.name "
+                            stack-label="Paciente"
+                            :before="[{icon: 'person', handler () {}}]"
+                            readonly
+                            dark
+                          />
+                        </div>
+                        <div class="col-12">
+                          <q-input
+                            :value="props.row.convenio"
+                            stack-label="Convênio"
+                            :before="[{icon: 'business', handler () {}}]"
+                            readonly
+                            dark
+                          />
+                        </div>
+                        <div class="col-6">
+                          <q-input
+                            :value="props.row.origin"
+                            stack-label="Origem"
+                            :before="[{icon: 'local_hospital', handler () {}}]"
+                            readonly
+                            dark
+                          />
+                        </div>
+                        <div class="col-6">
+                          <q-input
+                            :value="props.row.study"
+                            stack-label="Estudo"
+                            :before="[{icon: 'settings', handler () {}}]"
+                            readonly
+                            dark
+                          />
+                        </div>
+                        <div class="col-3">
+                          <q-input
+                            :value="props.row.exam"
+                            stack-label="Exame"
+                            :before="[{icon: 'assignment', handler () {}}]"
+                            readonly
+                            dark
+                          />
+                        </div>
+                        <div class="col-3">
+                          <q-input
+                            :value="props.row.series"
+                            stack-label="Séries"
+                            :before="[{icon: 'image', handler () {}}]"
+                            readonly
+                            dark
+                          />
+                        </div>
+                        <div class="col-3">
+                          <q-input
+                            :value="props.row.images"
+                            stack-label="Imagens"
+                            :before="[{icon: 'image', handler () {}}]"
+                            readonly
+                            dark
+                          />
+                        </div>
+                        <div class="col-3">
+                          <q-input
+                            :value="props.row.attachments"
+                            stack-label="Anexos"
+                            :before="[{icon: 'attach_file', handler () {}}]"
+                            readonly
+                            dark
+                          />
+                        </div>
                       </div>
-                      <div class="col-12">
-                        <q-input
-                          :value="props.row.convenio"
-                          stack-label="Convênio"
-                          :before="[{icon: 'business', handler () {}}]"
-                          readonly
-                          dark
-                        />
-                      </div>
-                      <div class="col-6">
-                        <q-input
-                          :value="props.row.origin"
-                          stack-label="Origem"
-                          :before="[{icon: 'local_hospital', handler () {}}]"
-                          readonly
-                          dark
-                        />
-                      </div>
-                      <div class="col-6">
-                        <q-input
-                          :value="props.row.study"
-                          stack-label="Estudo"
-                          :before="[{icon: 'settings', handler () {}}]"
-                          readonly
-                          dark
-                        />
-                      </div>
-                      <div class="col-3">
-                        <q-input
-                          :value="props.row.exam"
-                          stack-label="Exame"
-                          :before="[{icon: 'assignment', handler () {}}]"
-                          readonly
-                          dark
-                        />
-                      </div>
-                      <div class="col-3">
-                        <q-input
-                          :value="props.row.series"
-                          stack-label="Séries"
-                          :before="[{icon: 'image', handler () {}}]"
-                          readonly
-                          dark
-                        />
-                      </div>
-                      <div class="col-3">
-                        <q-input
-                          :value="props.row.images"
-                          stack-label="Imagens"
-                          :before="[{icon: 'image', handler () {}}]"
-                          readonly
-                          dark
-                        />
-                      </div>
-                      <div class="col-3">
-                        <q-input
-                          :value="props.row.attachments"
-                          stack-label="Anexos"
-                          :before="[{icon: 'attach_file', handler () {}}]"
-                          readonly
-                          dark
-                        />
-                      </div>
-                    </div>
-                  </q-card-main>
-                </q-card>
-              </div>
-              <div class="col-6">
-                <q-card color="dark">
-                  <q-card-separator/>
-                  <q-card-main>
-                    <div class="row">
-                      <div class="col-12">
-                        <q-input
-                          value="NÃO INFORMADO"
-                          stack-label="Solicitado por"
-                          :before="[{icon: 'person_pin', handler () {}}]"
-                          readonly
-                          dark
-                        />
-                      </div>
-                      <div class="col-6">
-                        <q-input
-                          value="NÃO INFORMADO"
-                          stack-label="Executado por"
-                          :before="[{icon: 'edit', handler () { detalhe('chama modal médico') }}]"
-                          readonly
-                          dark
-                        >
-                          <q-tooltip>Some tooltip</q-tooltip>
-                        </q-input>
-                      </div>
-                      <div class="col-6">
-                        <q-input
-                          value="NÃO INFORMADO"
-                          stack-label="Estação de Trabalho"
-                          :before="[{icon: 'edit', handler () {
+                    </q-card-main>
+                  </q-card>
+                </div>
+                <div class="col-6">
+                  <q-card color="secondary">
+                    <q-card-separator/>
+                    <q-card-main>
+                      <div class="row">
+                        <div class="col-12">
+                          <q-input
+                            value="NÃO INFORMADO"
+                            stack-label="Solicitado por"
+                            :before="[{icon: 'person_pin', handler () {}}]"
+                            readonly
+                            dark
+                          />
+                        </div>
+                        <div class="col-6">
+                          <q-input
+                            value="NÃO INFORMADO"
+                            stack-label="Executado por"
+                            :before="[{icon: 'edit', handler () { detalhe('chama modal médico') }}]"
+                            readonly
+                            dark
+                          >
+                            <q-tooltip>Some tooltip</q-tooltip>
+                          </q-input>
+                        </div>
+                        <div class="col-6">
+                          <q-input
+                            value="NÃO INFORMADO"
+                            stack-label="Estação de Trabalho"
+                            :before="[{icon: 'edit', handler () {
                           detalhe('chama modal estação')
                         }}]"
-                          readonly
-                          dark
-                        />
-                      </div>
-                      <div class="col-12">
-                        <q-input
-                          value="NÃO INFORMADO"
-                          stack-label="Laudado por"
-                          :before="[{icon: 'person_pin', handler () {}}]"
-                          readonly
-                          dark
-                        />
-                      </div>
+                            readonly
+                            dark
+                          />
+                        </div>
+                        <div class="col-12">
+                          <q-input
+                            value="NÃO INFORMADO"
+                            stack-label="Laudado por"
+                            :before="[{icon: 'person_pin', handler () {}}]"
+                            readonly
+                            dark
+                          />
+                        </div>
 
-                      <div class="col-12">
-                        <q-input
-                          value="NÃO INFORMADO"
-                          stack-label="Revisado por"
-                          :before="[{icon: 'person_pin', handler () {}}]"
-                          readonly
-                          dark
-                        />
+                        <div class="col-12">
+                          <q-input
+                            value="NÃO INFORMADO"
+                            stack-label="Revisado por"
+                            :before="[{icon: 'person_pin', handler () {}}]"
+                            readonly
+                            dark
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </q-card-main>
-                </q-card>
+                    </q-card-main>
+                  </q-card>
+                </div>
               </div>
-            </div>
-          </q-td>
-        </q-tr>
-      </template>
-    </q-table>
-  </q-page>
+            </q-td>
+          </q-tr>
+        </template>
+      </q-table>
+    </q-page>
   </div>
 </template>
 
@@ -202,8 +204,7 @@ export default {
         name: "desc",
         required: true,
         label: "",
-        align: "left",
-        
+        align: "left"
       },
       {
         name: "id",
@@ -302,19 +303,18 @@ export default {
     detalhe(msg) {
       alert(msg);
     },
-    linha(event){
-      let tr = event.path[4]
-      
-      if (tr.className.includes('selectedRow ')) {
-        tr.className -= ' selectedRow '
-      }
-      else{
-        tr.className += ' selectedRow '
+    linha(event) {
+      let tr = event.path[4];
+
+      if (tr.className.includes("selectedRow ")) {
+        tr.className -= " selectedRow ";
+      } else {
+        tr.className += " selectedRow ";
       }
     },
 
-    openDetail(rowId){
-      this.$router.push(`/exame/${rowId}`)
+    openDetail(rowId) {
+      this.$router.push(`/exame/${rowId}`);
     },
     fillTable() {
       setTimeout(() => {
@@ -397,10 +397,25 @@ export default {
   }
 };
 </script>
-<style>
-.selectedRow{
-  background-color: rgb(106, 158, 9) !important;
-  color: #ffffff;
+<style >
+</style>
+
+<style lang="scss" >
+.selectedRow {
+  background-color: #26a69a !important;
+  color: #ffffff !important;
   font-weight: bold !important;
+
+  .q-checkbox-icon {
+    color: #ffffff !important;
+  }
+}
+.home {
+  .q-if-label,
+  .q-if-addon,
+  .q-if-control {
+    color: #fff;
+    line-height: 24px;
+  }
 }
 </style>

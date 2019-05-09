@@ -4,14 +4,14 @@
       <q-card>
         <q-card-title>
           <span class="float-right">
-            <q-icon size="2rem" name="fullscreen"/>
+            <q-icon size="2rem" color="secondary" class="cursor-pointer" name="fullscreen"/>
           </span>
           <span class="float-right">
-            <q-icon size="2rem" name="layers"/>
+            <q-icon size="2rem" color="secondary" class="cursor-pointer" name="layers"/>
           </span>
           <router-link :to="{name: 'home'}">
             <span class="float-right">
-              <q-icon name="arrow_back" size="2rem"/>
+              <q-icon name="arrow_back" color="secondary" size="2rem" class="cursor-pointer"/>
             </span>
           </router-link>
         </q-card-title>
@@ -102,25 +102,43 @@
 
             <q-tab-pane name="todayExams">
               <q-table
+                grid
+                :data="tableData"
+                :columns="columns"
+                row-key="name"
+                :filter="filter"
+                :loading="loadingTable"
+                selection="single"
                 loading-label="Carregando dados"
                 rows-per-page-label="Resultados por página"
                 no-results-label="Nenhum resultado encontrado"
                 no-data-label="Sem dados para mostrar"
-      
-                :data="tableData"
-                :columns="columns"
-                grid
-                :loading="loadingTable"
-                :filter="filter"
-                
+                align="justify"
+                dense
               >
-                <template slot="top-right">
-                  <q-search
-                    color="secondary"
-                    hide-underline
-                    v-model="filter"
-                    placeholder="Pesquisar"
-                  />
+                <template slot="top-left">
+                  <q-search hide-underline v-model="filter" placeholder="Digite sua pesquisa"/>
+                </template>
+                <template slot="body" slot-scope="props">
+                  <q-tr :props="props">
+                    <q-td auto-width>
+                      <q-checkbox color="secondary" v-model="props.selected"></q-checkbox>
+                    </q-td>
+                    <q-td key="exam" :props="props">{{ props.row.exam }}</q-td>
+                    <q-td key="status" :props="props">{{ props.row.status }}</q-td>
+                    <q-td key="vincular" :props="props">
+                      <q-icon name="subdirectory_arrow_right" color="secondary" class="cursor-pointer"  size="2rem" />
+                    </q-td>
+                    <q-td key="report" :props="props">
+                      <q-icon name="print" color="secondary" class="cursor-pointer"  size="2rem" />
+                    </q-td>
+                    <q-td key="images" :props="props">
+                      <q-icon name="images" color="secondary" class="cursor-pointer"  size="2rem" />
+                    </q-td>
+                    <q-td key="open" :props="props">
+                      <q-icon name="open_in_new" color="secondary" class="cursor-pointer"  size="2rem" />
+                    </q-td>
+                  </q-tr>
                 </template>
               </q-table>
             </q-tab-pane>
@@ -134,78 +152,17 @@
   </div>
 </template>
 <script>
+import {tableData, columns} from './exame.js'
+
 export default {
   data() {
     return {
       id: this.$route.params.id,
       loadingTable: false,
-      tableData: [],
+      selected: [],
+      tableData,
       filter: "",
-      columns: [
-        {
-          name: "association",
-          required: true,
-          label: "Associar",
-          align: "left",
-          sortable: true,
-          classes: "my-class",
-          style: "width: 500px"
-        },
-        {
-          name: "exam",
-          required: true,
-          label: "Exame",
-          align: "left",
-          sortable: true,
-          classes: "my-class",
-          style: "width: 500px"
-        },
-        {
-          name: "status",
-          required: true,
-          label: "Status",
-          align: "left",
-          sortable: true,
-          classes: "my-class",
-          style: "width: 500px"
-        },
-        {
-          name: "vincular",
-          required: true,
-          label: "Vincular",
-          align: "left",
-          sortable: true,
-          classes: "my-class",
-          style: "width: 500px"
-        },
-        {
-          name: "report",
-          required: true,
-          label: "Relatório",
-          align: "left",
-          sortable: true,
-          classes: "my-class",
-          style: "width: 500px"
-        },
-        {
-          name: "images",
-          required: true,
-          label: "Imagens",
-          align: "left",
-          sortable: true,
-          classes: "my-class",
-          style: "width: 500px"
-        },
-        {
-          name: "open",
-          required: true,
-          label: "Abrir",
-          align: "left",
-          sortable: true,
-          classes: "my-class",
-          style: "width: 500px"
-        }
-      ],
+      columns,
       exam: {
         id: 1554848,
         name: "Ciclano",
