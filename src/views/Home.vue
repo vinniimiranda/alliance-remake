@@ -1,8 +1,9 @@
 <template>
-  <div class="row home">
-    <q-page>
+  <div class="row">
+    <q-page  class="docs-table ">
       <q-table
-        grid
+        
+        dense
         :data="tableData"
         :columns="columns"
         row-key="name"
@@ -15,13 +16,13 @@
         align="justify"
       >
         <template slot="top-left">
-          <q-search hide-underline v-model="filter" placeholder="Digite sua pesquisa"/>
+          <q-search hide-underline v-model="filter" :color="color" placeholder="Pesquisar"/>
         </template>
         <template slot="body" slot-scope="props">
-          <q-tr :props="props" @dblclick.native="openDetail(props.row.id)">
+          <q-tr :props="props" @dblclick.native="openDetail(props.row)">
             <q-td key="desc" :props="props">
               <q-checkbox
-                color="info"
+                :color="color"
                 v-model="props.expand"
                 checked-icon="keyboard_arrow_up"
                 unchecked-icon="keyboard_arrow_down"
@@ -39,11 +40,11 @@
             <q-td key="dataExame" :props="props">{{ props.row.date }}</q-td>
             <q-td key="status" :props="props">{{ props.row.status }}</q-td>
           </q-tr>
-          <q-tr v-show="props.expand" :props="props">
+          <q-tr v-show="props.expand" :props="props" class="home">
             <q-td colspan="100%">
               <div class="row gutter-sm">
                 <div class="col-6">
-                  <q-card color="secondary">
+                  <q-card :color="color">
                     <q-card-separator/>
                     <q-card-main>
                       <div class="row">
@@ -124,7 +125,7 @@
                   </q-card>
                 </div>
                 <div class="col-6">
-                  <q-card color="secondary">
+                  <q-card :color="color">
                     <q-card-separator/>
                     <q-card-main>
                       <div class="row">
@@ -305,16 +306,23 @@ export default {
     },
     linha(event) {
       let tr = event.path[4];
-
-      if (tr.className.includes("selectedRow ")) {
-        tr.className -= " selectedRow ";
-      } else {
-        tr.className += " selectedRow ";
-      }
+  
+      // if (tr.className.includes("selectedRow ")) {
+      //   $('.selectedRow').css('backgroundColor', `#fff`)
+      //   tr.className -= " selectedRow ";
+        
+      // } else {
+      //   tr.className += " selectedRow ";
+      //   $('.selectedRow').css('backgroundColor', `#027be3`)
+      // }
     },
 
-    openDetail(rowId) {
-      this.$router.push(`/exame/${rowId}`);
+    openDetail(row) {
+      console.log(row);
+      this.$router.push({
+        name: "exame",
+        params: { exam: row }
+      });
     },
     fillTable() {
       setTimeout(() => {
@@ -392,8 +400,15 @@ export default {
       }, 1000);
     }
   },
+  computed: {
+    color() {
+      return this.$store.getters.getColor
+      
+    }
+  },
   beforeMount() {
     this.fillTable();
+    
   }
 };
 </script>
@@ -402,7 +417,7 @@ export default {
 
 <style lang="scss" >
 .selectedRow {
-  background-color: #26a69a !important;
+  
   color: #ffffff !important;
   font-weight: bold !important;
 

@@ -23,8 +23,12 @@ export default new Router({
           component: About
         },
         {
-          path: '/exame/:id',
+          path: '/exame',
           name: 'exame',
+          props: (route) => ({
+            
+            ...route.params
+        }),
           component: () => import('./views/Exame.vue')
         }
       ]
