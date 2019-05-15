@@ -1,106 +1,120 @@
 <template>
-  <div class="row " >
-      
-        
-          <div class="col-xs-11 col-sm-10 col-md-6 col-lg-4 col-xl-3  absolute-center	">
-            <q-card class="bg-white">
-              <q-card-title>ALI</q-card-title>
-              <q-card-separator/>
-              <q-card-media align="center">
-                <img src="../assets/logo-alliance01.png" class="logoLogin">
-              </q-card-media>
-              <q-card-separator/>
-              <q-card-main>
-                <p :class="' text-'+ color">Plese inform your credentials</p>
-                <form @submit="login">
-                  <div class="row">
-                    <div class="col">
-                      <q-field error-label="Please type a valid email">
-                        <q-input
-                          :color="color"
-                          v-model="email"
-                          type="email"
-                          float-label="Email"
-                          required
-                        />
-                      </q-field>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <q-field>
-                        <q-input
-                          :color="color"
-                          v-model="password"
-                          type="password"
-                          float-label="Password"
-                          required
-                        />
-                      </q-field>
-                    </div>
-                  </div>
-                  <br>
-                  <br>
-                  <div class="row">
-                    <div class="col">
-                      <q-field error-label="We need a valid email">
-                        <q-select
-                          :color="color"
-                          float-label="Workstation"
-                          required
-                          v-model="workStation"
-                          :options="selectOptions"
-                        />
-                      </q-field>
-                    </div>
-                  </div>
-                  <div class="row justify-center">
-                    <h6 :class="'cursor-pointer text-'+ color">Esqueceu sua senha?</h6>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <q-field>
-                        <q-btn
-                          :color="color"
-                          size="lg"
-                          :loading="buttonLoading"
-                          align="center"
-                          style="width:100%"
-                          label="ENTRAR"
-                          type="submit"
-                          push
-                        />
-                      </q-field>
-                    </div>
-                  </div>
-                </form>
-              </q-card-main>
-            </q-card>
-            <q-card class="bg-white q-mt-sm">
-              <q-card-main align="center" class>
-                <img src="../assets/Logomarca_Biower_3.png" class="footerLogo">
-              </q-card-main>
-            </q-card>
-          </div>
-        
-      
-    
+  <div class="row">
+    <div class="col-xs-11 col-sm-10 col-md-6 col-lg-4 col-xl-3 absolute-center">
+      <q-card :class="{ 'bg-grey-10': dark, 'bg-white': !dark }">
+        <q-card-title>
+          <p :class="{ 'text-white': dark, 'text-black': dark == false }">
+            ALI
+          </p>
+        </q-card-title>
+        <q-card-separator />
+        <q-card-media align="center">
+          <img src="../assets/logo-alliance01.png" class="logoLogin" />
+        </q-card-media>
+        <q-card-separator />
+        <q-card-main>
+          <p :class="' text-' + color">Plese inform your credentials</p>
+          <form @submit="login">
+            <div class="row">
+              <div class="col">
+                <q-field :color="color" error-label="Please type a valid email">
+                  <q-input
+                    :color="color"
+                    v-model="email"
+                    type="email"
+                    float-label="Email"
+                    :dark="dark"
+                    required
+                  />
+                </q-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <q-field>
+                  <q-input
+                    :color="color"
+                    v-model="password"
+                    type="password"
+                    float-label="Password"
+                    :dark="dark"
+                    required
+                  />
+                </q-field>
+              </div>
+            </div>
+            <br />
+            <br />
+            <div class="row">
+              <div class="col">
+                <q-field error-label="We need a valid email">
+                  <q-select
+                    :color="color"
+                    float-label="Workstation"
+                    required
+                    v-model="workStation"
+                    :dark="dark"
+                    :options="selectOptions"
+                  />
+                </q-field>
+              </div>
+            </div>
+            <div class="row justify-center">
+              <h6 :class="'cursor-pointer text-' + color">
+                Esqueceu sua senha?
+              </h6>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <q-field>
+                  <q-btn
+                    :color="color"
+                    :glossy="glossy"
+                    size="lg"
+                    :loading="buttonLoading"
+                    align="center"
+                    style="width:100%"
+                    label="ENTRAR"
+                    type="submit"
+                    push
+                  />
+                </q-field>
+              </div>
+            </div>
+          </form>
+        </q-card-main>
+      </q-card>
+    </div>
+    <!-- <q-layout>
+      <q-layout-footer :class="{'bg-black' : dark, 'bg-white' : !dark}">
+        <div class="row q-my-sm">
+          <img src="../assets/Logomarca_Biower_3.png" class="footerLogo">
+          
+        </div>
+      </q-layout-footer>
+    </q-layout>-->
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .logoLogin {
   width: 25rem !important;
 }
 .footerLogo {
-  width: 10rem !important;
+  width: 10%;
+  height: 20%;
+  margin: auto;
 }
-body {
-}
-</style>
-<style scoped>
-</style>
 
+.bg-image {
+  background-image: url("../assets/bg.svg") !important;
+  background-size: 20rem !important;
+  background-blend-mode: multiply;
+  transition: all .4s;
+}
+
+
+</style>
 
 <script>
 export default {
@@ -126,6 +140,12 @@ export default {
   computed: {
     color() {
       return this.$store.getters.getColor;
+    },
+    glossy() {
+      return this.$store.getters.getGlossy;
+    },
+    dark() {
+      return this.$store.getters.getDarken;
     }
   },
   methods: {
@@ -149,16 +169,35 @@ export default {
           password: this.password,
           workStation: this.workStation
         };
-        this.$q.notify({
-          message: "Logged in successfully",
-          timeout: 3000,
-          type: "positive",
-          color: "postive",
-          position: "top-right"
-        });
+        if (form.email != "flavio.miranda@wtt.com.br") {
+          this.$q.notify({
+            message: "Nenhum usuário encontrado para o e-mail digitado.",
+            timeout: 3000,
+            type: "negative",
+            color: "negative",
+            position: "top-right"
+          });
+        } else if (form.password !== "12345678") {
+          this.$q.notify({
+            message: "Senha inválida.",
+            timeout: 3000,
+            type: "negative",
+            color: "negative",
+            position: "top-right"
+          });
+        } else {
+          this.$q.notify({
+            message: "Logged in successfully",
+            timeout: 3000,
+            type: "positive",
+            color: "postive",
+            position: "top-right"
+          });
+          this.$router.push("/studies");
+        }
+
         this.buttonLoading = false;
-        this.$router.push("/system/");
-      }, 1500);
+      }, 3500);
     }
   }
 };

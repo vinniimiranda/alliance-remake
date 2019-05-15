@@ -5,35 +5,44 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    color: 'primary',
-    glossy: true
+    color: "deep-purple",
+    glossy: false,
+    darken: true
   },
   mutations: {
-    setColor(state, newColor){
-      state.color = newColor
+    setColor(state, newColor) {
+      state.color = newColor;
     },
-    setGlossy(state, glossyState){
-      state.glossy = glossyState
+    setGlossy(state, glossyState) {
+      state.glossy = glossyState;
+    },
+    setDarken(state, darkenState) {
+      state.darken = darkenState;
     }
   },
   actions: {
-    setColor(context, newColor){
-      context.commit('setColor', newColor)
+    setColor(context, newColor) {
+      context.commit("setColor", newColor);
     },
-    setGlossy(context, glossyState){
-      console.log(glossyState)
-      context.commit('setGlossy', glossyState)
+    setGlossy(context, glossyState) {
+      context.commit("setGlossy", glossyState);
+    },
+    setDarken(context, darkenState) {
+      context.commit("setDarken", darkenState);
     }
   },
   getters: {
     getColor(state) {
-      return state.color
+      return state.color;
     },
     getGlossy(state) {
-      return state.glossy
+      return state.glossy;
     },
-    getLang(){
-      return `pt`
+    getDarken(state) {
+      return state.darken;
+    },
+    getLang() {
+      return `pt`;
     }
   }
 });

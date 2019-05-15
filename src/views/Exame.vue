@@ -1,109 +1,185 @@
 <template>
   <div class="row gutter-sm">
-    <div id="pacientData" class="col-6">
-      <q-card>
+    <div
+      id="patient"
+      class="animated col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
+    >
+      <q-card class="shadow-2" :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
         <q-card-title>
-          <span class="float-right">
-            <q-icon size="2rem" :color="color" class="cursor-pointer" @click.native="expand($event)" name="fullscreen"/>
+          <span class="float-right q-mx-xs">
+            <q-btn
+              round
+              color="white"
+              @click.native="expand('patient', 'viewer')"
+            >
+              <q-icon
+                size="2rem"
+                :color="color"
+                :dark="dark"
+                class="cursor-pointer"
+                name="fullscreen"
+              />
+            </q-btn>
           </span>
-          <span class="float-right">
-            <q-icon size="2rem" :color="color" class="cursor-pointer" name="layers"/>
+          <span class="float-right q-mx-xs">
+            <q-btn round color="white">
+              <q-icon
+                size="2rem"
+                :color="color"
+                class="cursor-pointer"
+                name="layers"
+              />
+            </q-btn>
           </span>
-          <router-link :to="{name: 'home'}">
-            <span class="float-right">
-              <q-icon name="arrow_back" :color="color" size="2rem" class="cursor-pointer"/>
+          <router-link :to="{ name: 'home' }">
+            <span class="float-right q-mx-xs">
+              <q-btn round color="white">
+                <q-icon
+                  name="arrow_back"
+                  :color="color"
+                  :dark="dark"
+                  size="2rem"
+                  class="cursor-pointer"
+                />
+              </q-btn>
             </span>
           </router-link>
         </q-card-title>
-
         <q-card-main>
-          <q-tabs class="shadow-1" animated swipeable :color="color" :glossy="glossy" align="justify">
-            <q-tab default name="pacient" slot="title" icon="person" label="Paciente"/>
-
-            <q-tab-pane name="pacient">
+         
+          <q-tabs
+            animated
+            swipeable
+            :color="color"
+            :dark="dark"
+            class="shadow-2"
+            :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }"
+            :glossy="glossy"
+            align="justify"
+          >
+            <q-tab
+              default
+              name="patient"
+              slot="title"
+              icon="person"
+              label="patiente"
+            />
+            <q-tab-pane name="patient">
               <div class="row">
-                <!-- <h6>{{ exam.id }} - {{ exam.name }}</h6> -->
-                <!-- <h6> {{examData }}</h6> -->
-              </div>
-              <div class="row">
+                <div class="col-6">
+                  <q-input
+                    :dark="dark"
+                    :value="exam.patientid + ' - ' + exam.patientname"
+                    stack-label="Paciente"
+                    :before="[{ icon: 'person', handler() {} }]"
+                    readonly
+                  />
+                </div>
+                <div class="col-6">
+                  <q-input
+                    :dark="dark"
+                    :value="exam.studydescription"
+                    stack-label="Exame"
+                    :before="[{ icon: 'assignment', handler() {} }]"
+                    readonly
+                    class="text-primary"
+                  />
+                </div>
+                <div class="col-6">
+                  <q-input
+                    :value="
+                      dateFormatter(exam.patientbirthdate) +
+                        ' - ' +
+                        exam.patientage +
+                        ' anos'
+                    "
+                    :color="color"
+                    :dark="dark"
+                    stack-label="Nascimento"
+                    :before="[{ icon: 'event', handler() {} }]"
+                    readonly
+                  />
+                </div>
                 <div class="col-6">
                   <q-input
                     :color="color"
-                    :value="exam.id + ' - ' + exam.name "
-                    stack-label="Paciente"
-                    :before="[{icon: 'person', handler () {}}]"
-                    readonly
-                  />
-                </div>
-                <div class="col-6">
-                  <q-input
-                    :value="exam.description"
-                    stack-label="Exame"
-                    :before="[{icon: 'assignment', handler () {}}]"
-                    readonly
-                  />
-                </div>
-                <div class="col-6">
-                  <q-input
-                    :value="exam.birth "
-                    stack-label="Nascimento"
-                    :before="[{icon: 'event', handler () {}}]"
-                    readonly
-                  />
-                </div>
-                <div class="col-6">
-                  <q-input
-                    :value="exam.exam"
+                    :dark="dark"
+                    :value="exam.accessionnumber"
                     stack-label="Identificação"
-                    :before="[{icon: 'local_hospital', handler () {}}]"
+                    :before="[{ icon: 'local_hospital', handler() {} }]"
                     readonly
                   />
                 </div>
                 <div class="col-6">
                   <q-input
-                    :value="exam.gender"
+                    :color="color"
+                    :dark="dark"
+                    :value="exam.patientsex"
                     stack-label="Sexo"
-                    :before="[{icon: 'perm_contact_calendar', handler () {}}]"
+                    :before="[{ icon: 'perm_contact_calendar', handler() {} }]"
                     readonly
                   />
                 </div>
                 <div class="col-6">
                   <q-input
-                    :value="exam.date"
+                    :color="color"
+                    :dark="dark"
+                    :value="dateFormatter(exam.studydate)"
                     stack-label="Data do Estudo"
-                    :before="[{icon: 'date_range', handler () {}}]"
+                    :before="[{ icon: 'date_range', handler() {} }]"
                     readonly
                   />
                 </div>
                 <div class="col-6">
                   <q-input
-                    value="NÃO INFORMADO"
+                    :color="color"
+                    :dark="dark"
+                    :value="exam.perfphyfullname || 'NÃO INFORMADO'"
                     stack-label="Executado por"
-                    :before="[{icon: 'wc', handler () {}}]"
+                    :before="[{ icon: 'wc', handler() {} }]"
                     readonly
                   />
                 </div>
                 <div class="col-6">
                   <q-input
-                    :value="exam.origin"
+                    :color="color"
+                    :dark="dark"
+                    :value="exam.workstationname || 'NÃO INFORMADO'"
                     stack-label="Origem"
-                    :before="[{icon: 'business', handler () {}}]"
+                    :before="[{ icon: 'business', handler() {} }]"
                     readonly
                   />
                 </div>
               </div>
             </q-tab-pane>
           </q-tabs>
-          <br>
-          <br>
-          <q-tabs class="shadow-2" animated swipeable :color="color" :glossy="glossy" align="justify">
-            <q-tab default name="todayExams" slot="title" label="Exames do dia"/>
-            <q-tab name="history" slot="title" label="Histórico de Laudos"/>
-            <q-tab name="historyExam" slot="title" label="Histórico de Exames"/>
-
+          <br />
+          <q-tabs
+            class="shadow-2"
+            animated
+            swipeable
+            :color="color"
+            :dark="dark"
+            :glossy="glossy"
+            align="justify"
+            :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }"
+          >
+            <q-tab
+              default
+              name="todayExams"
+              slot="title"
+              label="Exames do dia"
+            />
+            <q-tab name="history" slot="title" label="Histórico de Laudos" />
+            <q-tab
+              name="historyExam"
+              slot="title"
+              label="Histórico de Exames"
+            />
             <q-tab-pane name="todayExams">
               <q-table
-                grid
+                :color="color"
+                :dark="dark"
                 :data="tableData"
                 :columns="columns"
                 row-key="name"
@@ -115,46 +191,312 @@
                 no-results-label="Nenhum resultado encontrado"
                 no-data-label="Sem dados para mostrar"
                 align="justify"
-                dense
               >
                 <template slot="top-left">
-                  <q-search hide-underline v-model="filter" placeholder="Digite sua pesquisa"/>
+                  <q-search
+                    hide-underline
+                    v-model="filter"
+                    :color="color"
+                    :dark="dark"
+                    placeholder="Digite sua pesquisa"
+                  />
                 </template>
                 <template slot="body" slot-scope="props">
                   <q-tr :props="props">
-                    <q-td auto-width>
-                      <q-checkbox :color="color" v-model="props.selected"></q-checkbox>
+                    <q-td key="association">
+                      <q-checkbox
+                        :color="color"
+                        :dark="dark"
+                        v-model="props.expand"
+                      ></q-checkbox>
                     </q-td>
+
                     <q-td key="exam" :props="props">{{ props.row.exam }}</q-td>
-                    <q-td key="status" :props="props">{{ props.row.status }}</q-td>
+                    <q-td key="status" :props="props">{{
+                      props.row.status
+                    }}</q-td>
                     <q-td key="vincular" :props="props">
-                      <q-icon name="subdirectory_arrow_right" :color="color" class="cursor-pointer"  size="2rem" />
+                      <q-icon
+                        name="subdirectory_arrow_right"
+                        :color="color"
+                        :dark="dark"
+                        class="cursor-pointer"
+                        size="2rem"
+                      />
                     </q-td>
                     <q-td key="report" :props="props">
-                      <q-icon name="print" :color="color" class="cursor-pointer"  size="2rem" />
+                      <q-icon
+                        name="print"
+                        :color="color"
+                        :dark="dark"
+                        class="cursor-pointer"
+                        size="2rem"
+                      />
                     </q-td>
                     <q-td key="images" :props="props">
-                      <q-icon name="images" :color="color" class="cursor-pointer"  size="2rem" />
+                      <q-icon
+                        name="images"
+                        :color="color"
+                        :dark="dark"
+                        class="cursor-pointer"
+                        size="2rem"
+                      />
                     </q-td>
                     <q-td key="open" :props="props">
-                      <q-icon name="open_in_new" :color="color" class="cursor-pointer"  size="2rem" />
+                      <q-icon
+                        name="open_in_new"
+                        :color="color"
+                        :dark="dark"
+                        class="cursor-pointer"
+                        size="2rem"
+                      />
                     </q-td>
                   </q-tr>
                 </template>
               </q-table>
             </q-tab-pane>
-            <q-tab-pane name="history">Tab Five</q-tab-pane>
-            <q-tab-pane name="historyExam">Tab Five</q-tab-pane>
+            <q-tab-pane name="history">
+              <q-table
+                :color="color"
+                :dark="dark"
+                :data="tableDataReports"
+                :columns="columnsReports"
+                row-key="id"
+                :filter="filterReports"
+                :loading="loadingTable"
+                selection="single"
+                loading-label="Carregando dados"
+                rows-per-page-label="Resultados por página"
+                no-results-label="Nenhum resultado encontrado"
+                no-data-label="Sem dados para mostrar"
+                align="justify"
+              >
+                <template slot="top-left">
+                  <q-search
+                    hide-underline
+                    v-model="filterReports"
+                    :color="color"
+                    :dark="dark"
+                    placeholder="Digite sua pesquisa"
+                  />
+                </template>
+
+                <template slot="body" slot-scope="props">
+                  <q-tr :props="props">
+                    <q-td></q-td>
+                    <q-td auto-width key="readphyfullname">{{ props.row.readphyfullname }}</q-td>
+                    <q-td key="creationdate">{{ dateFormatter(props.row.creationdate) }}</q-td>
+                    <q-td key="username">{{ props.row.username }}</q-td>
+                    <q-td key="status"><q-icon class="cursor-pointer" size="2rem" :color="color" name="check" /></q-td>
+                    <q-td key="update"><q-icon class="cursor-pointer" size="2rem" :color="color" name="edit" /></q-td>
+                    
+                  </q-tr>
+                </template>
+              </q-table>
+            </q-tab-pane>
+            <q-tab-pane name="historyExam">
+              <q-table
+                :color="color"
+                :dark="dark"
+                :data="tableDataHistoryExams"
+                :columns="columnsHistoryExams"
+                row-key="id"
+                :filter="filterReports"
+                :loading="loadingTable"
+                selection="single"
+                loading-label="Carregando dados"
+                rows-per-page-label="Resultados por página"
+                no-results-label="Nenhum resultado encontrado"
+                no-data-label="Sem dados para mostrar"
+                align="justify"
+              >
+                <template slot="top-right">
+                  <q-search
+                    hide-underline
+                    v-model="filterReports"
+                    :color="color"
+                    :dark="dark"
+                    placeholder="Digite sua pesquisa"
+                  />
+                </template>
+
+                <template slot="body" slot-scope="props">
+                  <q-tr :props="props">
+                    <q-td></q-td>
+                    <q-td auto-width key="studydescription">{{ props.row.studydescription }}</q-td>
+                    <q-td key="statusname">{{ props.row.statusname }}</q-td>
+                    <q-td key="readphyid"><q-icon class="cursor-pointer" size="2rem" :color="color" name="description" /></q-td>
+                    <q-td key="status"><q-icon class="cursor-pointer" size="2rem" :color="color" name="check" /></q-td>
+                    <q-td key="update"><q-icon class="cursor-pointer" size="2rem" :color="color" name="edit" /></q-td>
+                    
+                  </q-tr>
+                </template>
+              </q-table>
+            </q-tab-pane>
+          </q-tabs>
+          <br />
+          <q-tabs
+            class="shadow-2"
+            :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }"
+            animated
+            swipeable
+            :color="color"
+            :dark="dark"
+            :glossy="glossy"
+            align="justify"
+          >
+            <q-tab
+              name="anotations"
+              slot="title"
+              icon="description"
+              label="Anotações"
+            />
+            <q-tab-pane name="anotations">
+              <div class="row">
+                <div class="col-12">
+                  <q-input
+                    type="textarea"
+                    rows="3"
+                    :color="color"
+                    :dark="dark"
+                    float-label="Descreva aqui suas anotações"
+                    value
+                  />
+                </div>
+
+                <div class="col-12 q-mt-md" align="right">
+                  <q-btn
+                    :color="color"
+                    :dark="dark"
+                    :glossy="glossy"
+                    icon="save"
+                    label="Salvar"
+                    size="lg"
+                  />
+                </div>
+              </div>
+            </q-tab-pane>
+          </q-tabs>
+          <br />
+          <q-tabs
+            class="shadow-2"
+            :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }"
+            animated
+            swipeable
+            :color="color"
+            :dark="dark"
+            :glossy="glossy"
+            align="justify"
+          >
+            <q-tab
+              name="attachments"
+              slot="title"
+              icon="attach_file"
+              label="Anexos"
+            />
+            <q-tab-pane name="attachments">
+              <div class="row">
+                <div class="col-12">
+                  <q-table
+                    :color="color"
+                    :dark="dark"
+                    :columns="columnsAttachments"
+                    :data="tableDataAttachments"
+                    row-key="id"
+                    loading-label="Carregando dados"
+                    rows-per-page-label="Resultados por página"
+                    no-results-label="Nenhum resultado encontrado"
+                    no-data-label="NENHUM DOCUMENTO FOI ANEXADO AO EXAME"
+                  >
+                    <template slot="body" slot-scope="props">
+                      <q-tr :props="props">
+                        <q-td key="type" :props="props">{{
+                          props.row.type
+                        }}</q-td>
+                        <q-td key="user" :props="props">{{
+                          props.row.user
+                        }}</q-td>
+                        <q-td key="date" :props="props">{{
+                          dateFormatter(props.row.date)
+                        }}</q-td>
+                        <q-td key="user" :props="props">
+                          <q-icon
+                            name="open_in_new"
+                            :color="color"
+                            :dark="dark"
+                            class="cursor-pointer"
+                            size="2rem"
+                          />
+                        </q-td>
+                        <q-td>
+                          <q-icon
+                            name="delete"
+                            :color="color"
+                            :dark="dark"
+                            class="cursor-pointer"
+                            size="2rem"
+                          />
+                        </q-td>
+                      </q-tr>
+                    </template>
+                  </q-table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-lg-6 col-xl-8"></div>
+                <div
+                  class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 q-mt-md"
+                  align="left"
+                >
+                  <input
+                    type="file"
+                    id="file"
+                    class="hidden"
+                    @change="sendFile()"
+                  />
+                  <q-select
+                    :color="color"
+                    :dark="dark"
+                    float-label="Tipo de Documento"
+                    v-model="attachmentType"
+                    :options="selectOptionsAttachment"
+                    :after="[
+                      {
+                        icon: 'attach_file',
+                        handler() {
+                          sendAttachment();
+                        }
+                      }
+                    ]"
+                  />
+                </div>
+              </div>
+            </q-tab-pane>
           </q-tabs>
         </q-card-main>
       </q-card>
     </div>
-    <div id="viewer" class="col-6">
-      <q-card>
-        <q-card-title>
+    <div
+      id="viewer"
+      class="animated col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
+    >
+      <q-card class="shadow-1" :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
+        <q-card-title :dark="dark">
           Viewer
           <span class="float-right">
-            <q-icon size="2rem" :color="color" class="cursor-pointer" @click.native="expand($event)" name="fullscreen"/>
+             <q-btn
+              round
+              color="white"
+              @click.native="expand('viewer', 'patient')"
+            >
+              <q-icon
+                size="2rem"
+                :color="color"
+                :dark="dark"
+                class="cursor-pointer"
+                name="fullscreen"
+              />
+            </q-btn>
           </span>
         </q-card-title>
       </q-card>
@@ -162,28 +504,76 @@
   </div>
 </template>
 <script>
-import {tableData, columns} from './exame.js'
+import { date } from "quasar";
+import {
+  columns,
+  columnsReports,
+  columnsAttachments,
+  columnsHistoryExams,
+  tableDataAttachments,
+  tableData,
+  tableDataReports,
+  tableDataHistoryExams
+} from "./tablesColumns/exame.js";
+import * as Home from "./tablesColumns/home.js";
 
 export default {
   methods: {
-    expand(event){ 
-      let row = event.path[6]
-      if (row.className.includes('col-6')) {
-        row.className = 'col-12'
-        
+    expand(divClick, divElse) {
+      let line = document.getElementById(`${divClick}`);
+      if (
+        line.className.includes("col-lg-6") ||
+        line.className.includes("col-xl-6")
+      ) {
+        console.log("tamanho 6");
+        $(`#${divClick}`).show();
+        $(`#${divClick}`).removeClass("col-lg-6 col-xl-6");
+        $(`#${divClick}`).addClass("col-lg-12 col-xl-12");
+
+        $(`#${divElse}`).hide();
+        $(`#${divElse}`).addClass("col-lg-6 col-xl-6");
+      } else {
+        $(`#${divClick}`).show();
+        $(`#${divClick}`).removeClass("col-lg-12 col-xl-12");
+        $(`#${divClick}`).addClass("col-lg-6 col-xl-6");
+
+        $(`#${divElse}`).show();
+        $(`#${divElse}`).removeClass("col-lg-12 col-xl-12");
+        $(`#${divElse}`).addClass("col-lg-6 col-xl-6");
       }
-      else{
-        row.className = 'col-6'
-      }
-      console.log(row)
+    },
+    dateFormatter(fullDate) {
+      return date.formatDate(fullDate, "DD/MM/YYYY");
+    },
+    sendAttachment() {
+      $("#file").click();
+    },
+    sendFile() {
+      let fileInput = $("#file");
+      let fileList = fileInput[0].files;
+
+      let fileListString = fileList[0].name;
+      alert(
+        `Tipo de Documento: ${this.attachmentType}, arquivo: ${fileListString}`
+      );
+    },
+    checkExams() {
+      Home.tableData.filter(examI => {
+        if (examI.id == this.id) {
+          this.exam = examI;
+        }
+      });
     }
   },
   computed: {
     color() {
-      return this.$store.getters.getColor
+      return this.$store.getters.getColor;
     },
     glossy() {
-      return this.$store.getters.getGlossy
+      return this.$store.getters.getGlossy;
+    },
+    dark() {
+      return this.$store.getters.getDarken;
     }
   },
   data() {
@@ -191,22 +581,52 @@ export default {
       id: this.$route.params.id,
       loadingTable: false,
       selected: [],
-      tableData,
+      attachmentType: "",
+      selectOptionsAttachment: [
+        {
+          label: "Histórico Clínico",
+          value: "Histórico Clínico"
+        },
+        {
+          label: "Pedido Médico",
+          value: "Pedido Médico"
+        },
+        {
+          label: "Anamnese",
+          value: "Anamnese"
+        },
+        {
+          label: "Outros",
+          value: "Outros"
+        }
+      ],
       filter: "",
+      filterReports: "",
       columns,
-      exam: this.$route.params.exam
+      columnsReports,
+      columnsAttachments,
+      columnsHistoryExams,
+      tableData,
+      tableDataAttachments,
+      tableDataReports: [],
+      tableDataHistoryExams,
+      exam: {}
     };
   },
-  created() {
+
+  beforeMount() {
+    this.checkExams();
+    tableDataReports.filter(report => {
+      if(this.exam.reportid == report.id){
+        this.tableDataReports.push(report)
+      }
+      
+    })
   }
 };
 </script>
 <style>
-.q-if:not(.q-if-disabled):not(.q-if-error):not(.q-if-warning):hover:before, .q-if.q-if-readonly:not(.q-if-error):not(.q-if-warning):after{
-  color: #26A69A;
-}
-#pacientData{
-  transition: all .3s;
+.animated {
+  transition: all 0.25s;
 }
 </style>
-

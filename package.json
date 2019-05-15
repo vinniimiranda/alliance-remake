@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "express": "^4.16.4",
     "quasar-extras": "^2.0.4",
     "quasar-framework": "^0.17.0",
     "register-service-worker": "^1.6.2",

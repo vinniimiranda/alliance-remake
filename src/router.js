@@ -9,7 +9,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: "/system",
+      path: "/studies",
       component: DefaultLayout,
       children: [
         {
@@ -23,20 +23,24 @@ export default new Router({
           component: About
         },
         {
-          path: '/exame',
-          name: 'exame',
-          props: (route) => ({
-            
+          path: "/exame",
+          name: "exame",
+          props: route => ({
             ...route.params
-        }),
-          component: () => import('./views/Exame.vue')
+          }),
+          component: () => import("./views/Exame.vue")
         }
       ]
     },
     {
-      path: '/',
-      name: 'login',
-      component: () => import('./views/Login.vue')
+      path: "/",
+      name: "login",
+      component: () => import("./views/Login.vue")
+    },
+    {
+      path: "/forgot",
+      name: "forgot",
+      component: () => import("./views/Forgot.vue")
     }
   ]
 });
