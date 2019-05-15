@@ -3,18 +3,16 @@
     <div class="col-xs-11 col-sm-10 col-md-6 col-lg-4 col-xl-3 absolute-center">
       <q-card :class="{ 'bg-grey-10': dark, 'bg-white': !dark }">
         <q-card-title>
-          <p :class="{ 'text-white': dark, 'text-black': dark == false }">
-            ALI
-          </p>
+          <p :class="{ 'text-white': dark, 'text-black': dark == false }">ALI</p>
         </q-card-title>
-        <q-card-separator />
+        <q-card-separator/>
         <q-card-media align="center">
-          <img src="../assets/logo-alliance01.png" class="logoLogin" />
+          <img src="../assets/logo-alliance01.png" class="logoLogin">
         </q-card-media>
-        <q-card-separator />
+        <q-card-separator/>
         <q-card-main>
           <p :class="' text-' + color">Plese inform your credentials</p>
-          <form @submit="login">
+          <form @submit.prevent="login">
             <div class="row">
               <div class="col">
                 <q-field :color="color" error-label="Please type a valid email">
@@ -43,8 +41,8 @@
                 </q-field>
               </div>
             </div>
-            <br />
-            <br />
+            <br>
+            <br>
             <div class="row">
               <div class="col">
                 <q-field error-label="We need a valid email">
@@ -60,9 +58,7 @@
               </div>
             </div>
             <div class="row justify-center">
-              <h6 :class="'cursor-pointer text-' + color">
-                Esqueceu sua senha?
-              </h6>
+              <h6 :class="'cursor-pointer text-' + color">Esqueceu sua senha?</h6>
             </div>
             <div class="row">
               <div class="col-12">
@@ -110,10 +106,8 @@
   background-image: url("../assets/bg.svg") !important;
   background-size: 20rem !important;
   background-blend-mode: multiply;
-  transition: all .4s;
+  transition: all 0.4s;
 }
-
-
 </style>
 
 <script>
@@ -123,7 +117,7 @@ export default {
     return {
       email: "flavio.miranda@wtt.com.br",
       password: "12345678",
-      workStation: "fb",
+      workStation: "",
       buttonLoading: false,
       selectOptions: [
         {
@@ -152,6 +146,7 @@ export default {
     login() {
       this.buttonLoading = true;
       setTimeout(() => {
+        this.buttonLoading = false;
         if (this.workStation == "") {
           this.$q.notify({
             message: "You need select a workstation",
@@ -160,16 +155,10 @@ export default {
             color: "warning",
             position: "top-right"
           });
-          this.buttonLoading = false;
           return false;
         }
 
-        let form = {
-          email: this.email,
-          password: this.password,
-          workStation: this.workStation
-        };
-        if (form.email != "flavio.miranda@wtt.com.br") {
+        if (this.email != "flavio.miranda@wtt.com.br") {
           this.$q.notify({
             message: "Nenhum usuário encontrado para o e-mail digitado.",
             timeout: 3000,
@@ -177,7 +166,7 @@ export default {
             color: "negative",
             position: "top-right"
           });
-        } else if (form.password !== "12345678") {
+        } else if (this.password !== "12345678") {
           this.$q.notify({
             message: "Senha inválida.",
             timeout: 3000,
@@ -193,11 +182,13 @@ export default {
             color: "postive",
             position: "top-right"
           });
-          this.$router.push("/studies");
+          this.$router.push({ name: "home" });
         }
+      }, 2500);
+      // }
 
-        this.buttonLoading = false;
-      }, 3500);
+      // this.buttonLoading = false;
+      // }, 3500);
     }
   }
 };
