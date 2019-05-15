@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
-
+import jQuery from 'jquery'
 import "./styles/quasar.styl";
 import "quasar-framework/dist/quasar.ie.polyfills";
 import "quasar-extras/animate";
@@ -13,6 +13,7 @@ import Quasar from "quasar";
 Vue.use(Quasar, {
   config: {}
 });
+
 
 Vue.config.productionTip = false;
 

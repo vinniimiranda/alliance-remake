@@ -15,6 +15,7 @@ body {
 
 </style>
 <script>
+import jQuery from 'jquery'
 export default {
   beforeMount() {
      if (this.$store.getters.getDarken) {
