@@ -1,7 +1,9 @@
 <template>
   <div id="app">
+    
     <router-view />
   </div>
+  
 </template>
 
 <style>
@@ -14,8 +16,9 @@ body {
 
 
 </style>
+
 <script>
-import jQuery from 'jquery'
+
 export default {
   beforeMount() {
      if (this.$store.getters.getDarken) {
