@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.c236d04f7e304da128155d2bb08789cd.js"
+  "/precache-manifest.148bd578252a222801bcdd77bafecf38.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "alliance"});
