@@ -1,9 +1,7 @@
 <template>
   <div id="app">
-    
-    <router-view />
+    <router-view/>
   </div>
-  
 </template>
 
 <style>
@@ -13,20 +11,26 @@ body {
   background-blend-mode: multiply;
   animation: draw 1400ms ease-in-out 4ms forwards;
 }
-
-
 </style>
 
 <script>
-
 export default {
   beforeMount() {
-     if (this.$store.getters.getDarken) {
-        $("body").addClass("bg-dark bg-image");
-      } else {
-        $("body").removeClass("bg-dark");
-        $("body").addClass("bg-white bg-image");
-      }
-  },
-}
+    let body = document.getElementById("body");
+    let classList = body.classList;
+    if (this.$store.getters.getDarken) {
+      classList.remove("bg-image");
+      classList.remove("bg-white");
+      classList.remove("bg-dark");
+      classList.add("bg-dark");
+      classList.add("bg-image");
+    } else {
+      classList.remove("bg-image");
+      classList.remove("bg-dark");
+      classList.remove("bg-white");
+      classList.add("bg-white");
+      classList.add("bg-image");
+    }
+  }
+};
 </script>

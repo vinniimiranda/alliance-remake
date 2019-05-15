@@ -4,7 +4,7 @@
       id="patient"
       class="animated col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
     >
-      <q-card class="shadow-2" :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
+      <q-card  class="shadow-2" :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
         <q-card-title>
           <span class="float-right q-mx-xs">
             <q-btn
@@ -45,7 +45,7 @@
             </span>
           </router-link>
         </q-card-title>
-        <q-card-main>
+        <q-card-main  >
          
           <q-tabs
             animated
@@ -182,10 +182,11 @@
                 :dark="dark"
                 :data="tableData"
                 :columns="columns"
-                row-key="name"
+                row-key="id"
                 :filter="filter"
                 :loading="loadingTable"
-                selection="single"
+                selection="multiple"
+                :selected.sync="selected"
                 loading-label="Carregando dados"
                 rows-per-page-label="Resultados por página"
                 no-results-label="Nenhum resultado encontrado"
@@ -207,7 +208,7 @@
                       <q-checkbox
                         :color="color"
                         :dark="dark"
-                        v-model="props.expand"
+                        v-model="props.selected" 
                       ></q-checkbox>
                     </q-td>
 
@@ -479,11 +480,12 @@
     <div
       id="viewer"
       class="animated col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
+      
     >
-      <q-card class="shadow-1" :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
-        <q-card-title :dark="dark">
-          Viewer
-          <span class="float-right">
+      <q-card  class="shadow-1" :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
+        <q-card-title :dark="dark" >
+           
+               <span class="float-right">
              <q-btn
               round
               color="white"
@@ -498,7 +500,32 @@
               />
             </q-btn>
           </span>
+          <div class="float-left"  :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
+
+             <div class="iconViewer">
+               <q-btn  size="md" color="white" round >
+               <q-icon
+                size="2rem"
+                :color="color"
+                :dark="dark"
+                class="cursor-pointer"
+                name="person_pin"
+              />
+              </q-btn></div> 
+             <div id="patientInfoViewer"  :class="{ 'text-grey-10': !dark, 'text-white': dark }" > 
+              
+            {{ exam.patientid }} - {{ exam.patientname }}
+            </div>
+            <div id="examInfoViewer" :class="{ 'text-grey-10': !dark, 'text-white': dark }">  {{ exam.studydescription }} -AN:{{ exam.accessionnumber }}</div>
+            
+          </div>
+          <!-- Viewer {{ exam.webviewerurl }} -->
+         
+          
         </q-card-title>
+        <q-card-main style="height:100%">
+          <iframe :src="exam.webviewerurl" type="text/html" frameborder="0" height="100%" width="100%"></iframe>
+        </q-card-main>
       </q-card>
     </div>
   </div>
@@ -628,5 +655,15 @@ export default {
 <style>
 .animated {
   transition: all 0.25s;
+}
+#patientInfoViewer, #examInfoViewer{
+  position: relative;
+  top: -3rem;
+  margin-left: 3.3rem !important;
+  
+
+}
+*{
+  font-size: .91rem;
 }
 </style>

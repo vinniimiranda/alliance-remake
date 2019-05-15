@@ -117,7 +117,7 @@ export default {
     return {
       email: "flavio.miranda@wtt.com.br",
       password: "12345678",
-      workStation: "",
+      workStation: "goog",
       buttonLoading: false,
       selectOptions: [
         {

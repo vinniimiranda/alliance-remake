@@ -5,13 +5,13 @@ module.exports = {
       selected: false,
       exam: "ULTRASSOM",
       status: "FINALIZADO"
-    }
-    // {
-    //   id: 2,
-    //   selected: false,
-    //   exam: "TOMOGRAFIA",
-    //   status: "À LAUDAR"
-    // },
+    },
+    {
+      id: 2,
+      selected: false,
+      exam: "TOMOGRAFIA",
+      status: "À LAUDAR"
+    },
     // {
     //   id: 3,
     //   selected: false,
