@@ -1348,13 +1348,15 @@ module.exports = {
       name: "desc",
       label: "",
       required: true,
-      align: "left"
+      align: "left",
+      index:0
     },
     {
       name: "info",
       label: "",
       required: true,
-      align: "left"
+      align: "left",
+      index:1
     },
     {
       name: "patientid",
@@ -1363,7 +1365,8 @@ module.exports = {
       field: "patientid",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px"
+      style: "width: 500px",
+      index:2
     },
     {
       name: "paciente",
@@ -1372,7 +1375,8 @@ module.exports = {
       field: "patientname",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px"
+      style: "width: 500px",
+      index:3
     },
     {
       name: "sexo",
@@ -1381,7 +1385,8 @@ module.exports = {
       field: "patientsex",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px"
+      style: "width: 500px",
+      index:4
     },
     {
       name: "nascimento",
@@ -1390,7 +1395,8 @@ module.exports = {
       field: "patientbirthdate",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px"
+      style: "width: 500px",
+      index: 5
     },
     {
       name: "origem",
@@ -1399,7 +1405,8 @@ module.exports = {
       field: "sitename",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px"
+      style: "width: 500px",
+      index: 6,
     },
     {
       name: "descricao",
@@ -1408,7 +1415,8 @@ module.exports = {
       field: "studydescription",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px"
+      style: "width: 500px",
+      index: 7
     },
     {
       name: "mod",
@@ -1417,16 +1425,18 @@ module.exports = {
       field: "studymodality",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px"
+      style: "width: 500px",
+      index: 8,
     },
     {
       name: "dataExame",
       label: "Data do Exame",
       align: "left",
-      field: "reportcreationdate",
+      field: "studydate",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px"
+      style: "width: 500px",
+      index: 9
     },
     {
       name: "status",
@@ -1435,7 +1445,8 @@ module.exports = {
       field: "statusname",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px"
+      style: "width: 500px",
+      index: 10
     }
   ],
   visibleColumns: ['desc', 'info', 'patientid', 'paciente', 'sexo', 'nascimento', 'origem', 'origem', 'descricao', 'mod', 'dataExame', 'status'],

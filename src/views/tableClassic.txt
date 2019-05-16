@@ -1,0 +1,36 @@
+<!-- <q-tr :props="props" @dblclick.native="openStudyDetail(props.row)">
+              
+              <q-td key="patientid" :props="props">{{ props.row.patientid }}</q-td>
+              <q-td key="paciente" :props="props">
+                {{
+                props.row.patientname
+                }}
+              </q-td>
+              <q-td key="sexo" :props="props">{{ props.row.patientsex }}</q-td>
+              <q-td key="nascimento" :props="props">
+                {{
+                dateFormatter(props.row.patientbirthdate)
+                }}
+              </q-td>
+              <q-td key="origem" :props="props">{{ props.row.sitename }}</q-td>
+              <q-td key="descricao" :props="props">
+                {{
+                props.row.studydescription
+                }}
+              </q-td>
+              <q-td key="mod" :props="props">
+                {{
+                props.row.studymodality
+                }}
+              </q-td>
+              <q-td key="dataExame" :props="props">
+                {{
+                dateFormatter(props.row.studydate) + ' ' + props.row.studytime
+                }}
+              </q-td>
+              <q-td key="status" :props="props">
+                {{
+                props.row.statusname
+                }}
+              </q-td>
+            </q-tr> -->

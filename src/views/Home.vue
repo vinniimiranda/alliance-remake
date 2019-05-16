@@ -38,12 +38,24 @@
               :columns="columns"
               label="Colunas"
             />
-            
+           
+          <q-btn label="Inverter colunas" @click="changeColumnOrder()" :color="color"></q-btn>
           </template>
+          <!-- <q-tr slot="header" slot-scope="props" :props="props">
+            <q-th  v-for="col in props.cols " :key="col.name" :class="col.__thClass" class="sortable"> 
+              {{ col.label  }}
+              <q-icon name="arrow_upward" :class="col.__iconClass"></q-icon>
+               </q-th>
+          </q-tr> -->
           <template slot="body" slot-scope="props">
-            <q-tr :props="props" @dblclick.native="openStudyDetail(props.row)">
-              <q-td auto-width key="desc" :props="props">
+            <q-tr
+              :props="props"
+              @dblclick.native="openStudyDetail(props.row)"
+              class="cursor-pointer"
+            >
+              <q-td v-for="col in props.cols" :key="col.name" :props="props">
                 <q-checkbox
+                  v-if="col.name== 'desc'"
                   :color="color"
                   v-model="props.expand"
                   checked-icon="keyboard_arrow_up"
@@ -51,50 +63,19 @@
                   class="q-mr-md"
                   @click.native="fillEmptyInput(props.row)"
                 />
-              </q-td>
-              <q-td auto-width>
                 <q-btn
+                  v-else-if="col.name== 'info'"
                   flat
                   round
                   :color="color"
                   icon="open_in_new"
                   @click="openStudyDetail(props.row)"
                 />
-              </q-td>
-              <q-td key="patientid" :props="props">{{ props.row.patientid }}</q-td>
-              <q-td key="paciente" :props="props">
-                {{
-                props.row.patientname
-                }}
-              </q-td>
-              <q-td key="sexo" :props="props">{{ props.row.patientsex }}</q-td>
-              <q-td key="nascimento" :props="props">
-                {{
-                dateFormatter(props.row.patientbirthdate)
-                }}
-              </q-td>
-              <q-td key="origem" :props="props">{{ props.row.sitename }}</q-td>
-              <q-td key="descricao" :props="props">
-                {{
-                props.row.studydescription
-                }}
-              </q-td>
-              <q-td key="mod" :props="props">
-                {{
-                props.row.studymodality
-                }}
-              </q-td>
-              <q-td key="dataExame" :props="props">
-                {{
-                dateFormatter(props.row.studydate) + ' ' + props.row.studytime
-                }}
-              </q-td>
-              <q-td key="status" :props="props">
-                {{
-                props.row.statusname
-                }}
+                <span v-else-if="col.name== 'nascimento' || col.name== 'dataExame' "> {{ dateFormatter(col.value) }} </span>
+                <span v-else>{{ col.value }}</span>
               </q-td>
             </q-tr>
+
             <q-tr v-show="props.expand" :props="props" class="home">
               <q-td colspan="100%">
                 <div class="row gutter-sm">
@@ -507,8 +488,7 @@ export default {
     tableData: [],
     tableDataDoctorModal,
     tableDataWorkStationModal,
-    visibleColumns,
-
+    visibleColumns
   }),
   methods: {
     dateFormatter(data) {
@@ -538,6 +518,15 @@ export default {
 
         this.loading = false;
       }, 500);
+    },
+    changeColumnOrder(columnName) {
+      this.columns.sort((a, b) => {
+        if ( (b.name != "desc" && b.name != "info")) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
     }
   },
   computed: {
