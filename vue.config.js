@@ -5,6 +5,5 @@ module.exports = {
       importAll: true
     }
   },
-  transpileDependencies: [/[\\\/]node_modules[\\\/]quasar-framework[\\\/]/],
-  
+  transpileDependencies: [/[\\\/]node_modules[\\\/]quasar-framework[\\\/]/]
 };

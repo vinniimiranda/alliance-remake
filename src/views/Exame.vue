@@ -2,7 +2,7 @@
   <div class="row gutter-sm">
     <div
       id="patient"
-      class="animated col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
+      class="animated col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 "
     >
       <q-card  class="shadow-2" :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
         <q-card-title>
@@ -55,7 +55,7 @@
             class="shadow-2"
             :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }"
             :glossy="glossy"
-            align="justify"
+            align="left"
           >
             <q-tab
               default
@@ -311,7 +311,7 @@
                 no-data-label="Sem dados para mostrar"
                 align="justify"
               >
-                <template slot="top-right">
+                <template slot="top-left">
                   <q-search
                     hide-underline
                     v-model="filterReports"
@@ -480,9 +480,9 @@
     <div
       id="viewer"
       class="animated col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"
-      
+      style="height:100%"
     >
-      <q-card  class="shadow-1" :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
+      <q-card  style="height:94.5vh"  class="shadow-1 relative-position" :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
         <q-card-title :dark="dark" >
            
                <span class="float-right">
@@ -500,7 +500,7 @@
               />
             </q-btn>
           </span>
-          <div class="float-left"  :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
+          <div style="height:100%" class="float-left"  :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
 
              <div class="iconViewer">
                <q-btn  size="md" color="white" round >
@@ -523,7 +523,7 @@
          
           
         </q-card-title>
-        <q-card-main style="height:100%">
+        <q-card-main >
           <iframe :src="exam.webviewerurl" type="text/html" frameborder="0" height="100%" width="100%"></iframe>
         </q-card-main>
       </q-card>
@@ -662,6 +662,10 @@ export default {
   margin-left: 3.3rem !important;
   
 
+}
+
+#viewer{
+  height: 100%;  
 }
 *{
   font-size: .91rem;

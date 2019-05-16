@@ -11,7 +11,7 @@ module.exports = {
       selected: false,
       exam: "TOMOGRAFIA",
       status: "À LAUDAR"
-    },
+    }
     // {
     //   id: 3,
     //   selected: false,
@@ -173,7 +173,7 @@ module.exports = {
       classes: "my-class",
       style: "width: 500px"
     },
-    
+
     {
       name: "readphyid",
       required: true,
