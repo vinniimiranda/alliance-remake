@@ -184,14 +184,14 @@
             :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }"
           >
             <q-tab
-              
+              default
               name="todayExams"
               slot="title"
               label="Exames do dia"
             />
             <q-tab name="history" slot="title" label="Histórico de Laudos" />
             <q-tab
-              default
+              
               name="historyExam"
               slot="title"
               label="Histórico de Exames"
