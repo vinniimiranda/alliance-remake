@@ -18,6 +18,7 @@
           align="justify"
           :visible-columns="visibleColumns"
           :pagination.sync="pagination"
+          grid
           :rows-per-page-options="[10, 20, 50, 100, 0]"
         >
           <template slot="top-left">
@@ -61,15 +62,17 @@
                   v-model="props.expand"
                   checked-icon="keyboard_arrow_up"
                   unchecked-icon="keyboard_arrow_down"
-                  class="q-mr-md"
+                  class="q-mr-md hide-on-med-and-down"
                   @click.native="fillEmptyInput(props.row)"
                 />
                 <q-btn
                   v-else-if="col.name== 'info'"
                   flat
+                  class="mobile-only"
                   round
                   :color="color"
                   icon="open_in_new"
+                  auto-width
                   @click="openStudyDetail(props.row)"
                 />
                 <span v-else-if="col.name== 'nascimento' || col.name== 'dataExame' "> {{ dateFormatter(col.value) }} </span>
@@ -476,7 +479,7 @@ export default {
       sortBy: null, // String, column "name" property value
       descending: false,
       page: 1,
-      rowsPerPage: 20 // current rows per page being displayed
+      rowsPerPage: 10 // current rows per page being displayed
     },
     loading: true,
     perfphyPosition: "",
