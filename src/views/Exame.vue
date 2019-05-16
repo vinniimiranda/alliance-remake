@@ -7,7 +7,7 @@
       <q-card  class="shadow-2" :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
         <q-card-title>
           <span class="float-right q-mx-xs">
-            <q-btn
+                <q-btn
               round
               color="white"
               @click.native="expand('patient', 'viewer')"
@@ -19,6 +19,12 @@
                 class="cursor-pointer"
                 name="fullscreen"
               />
+              <q-tooltip
+                :class="'bg-white text-' + color"
+                anchor="top left"
+                
+                >Tela toda
+              </q-tooltip>
             </q-btn>
           </span>
           <span class="float-right q-mx-xs">
@@ -29,6 +35,12 @@
                 class="cursor-pointer"
                 name="layers"
               />
+              <q-tooltip
+                :class="'bg-white text-' + color"
+                anchor="top left"
+                self="bottom left"
+                >Templates</q-tooltip
+              >
             </q-btn>
           </span>
           <router-link :to="{ name: 'home' }">
@@ -41,6 +53,12 @@
                   size="2rem"
                   class="cursor-pointer"
                 />
+                <q-tooltip
+                :class="'bg-white text-' + color"
+                anchor="top left"
+                self="bottom left"
+                >Exames</q-tooltip
+              >
               </q-btn>
             </span>
           </router-link>
@@ -55,18 +73,19 @@
             class="shadow-2"
             :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }"
             :glossy="glossy"
-            align="left"
+            align="justify"
           >
-            <q-tab
+                <q-tab
               default
               name="patient"
               slot="title"
               icon="person"
-              label="patiente"
+              label="Paciente"
             />
+            
             <q-tab-pane name="patient">
               <div class="row">
-                <div class="col-6">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
                   <q-input
                     :dark="dark"
                     :value="exam.patientid + ' - ' + exam.patientname"
@@ -75,7 +94,7 @@
                     readonly
                   />
                 </div>
-                <div class="col-6">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
                   <q-input
                     :dark="dark"
                     :value="exam.studydescription"
@@ -85,7 +104,7 @@
                     class="text-primary"
                   />
                 </div>
-                <div class="col-6">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                   <q-input
                     :value="
                       dateFormatter(exam.patientbirthdate) +
@@ -100,7 +119,7 @@
                     readonly
                   />
                 </div>
-                <div class="col-6">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                   <q-input
                     :color="color"
                     :dark="dark"
@@ -110,7 +129,7 @@
                     readonly
                   />
                 </div>
-                <div class="col-6">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                   <q-input
                     :color="color"
                     :dark="dark"
@@ -120,7 +139,7 @@
                     readonly
                   />
                 </div>
-                <div class="col-6">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                   <q-input
                     :color="color"
                     :dark="dark"
@@ -130,7 +149,7 @@
                     readonly
                   />
                 </div>
-                <div class="col-6">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                   <q-input
                     :color="color"
                     :dark="dark"
@@ -140,7 +159,7 @@
                     readonly
                   />
                 </div>
-                <div class="col-6">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                   <q-input
                     :color="color"
                     :dark="dark"
@@ -165,13 +184,14 @@
             :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }"
           >
             <q-tab
-              default
+              
               name="todayExams"
               slot="title"
               label="Exames do dia"
             />
             <q-tab name="history" slot="title" label="Histórico de Laudos" />
             <q-tab
+              default
               name="historyExam"
               slot="title"
               label="Histórico de Exames"
@@ -498,6 +518,11 @@
                 class="cursor-pointer"
                 name="fullscreen"
               />
+              <q-tooltip
+                :class="'bg-white text-' + color"
+                anchor="top left"
+                >Tela toda
+              </q-tooltip>
             </q-btn>
           </span>
           <div style="height:100%" class="float-left"  :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
@@ -654,7 +679,7 @@ export default {
 </script>
 <style>
 .animated {
-  transition: all 0.25s;
+  /* transition: all 0.05s; */
 }
 #patientInfoViewer, #examInfoViewer{
   position: relative;
@@ -668,6 +693,6 @@ export default {
   height: 100%;  
 }
 *{
-  font-size: .91rem;
+  /* font-size: 0.91rem; */
 }
 </style>

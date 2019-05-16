@@ -16,6 +16,7 @@
           no-results-label="Nenhum resultado encontrado"
           no-data-label="Sem dados para mostrar"
           align="justify"
+          :visible-columns="visibleColumns"
           :pagination.sync="pagination"
           :rows-per-page-options="[10, 20, 50, 100, 0]"
         >
@@ -28,9 +29,20 @@
               placeholder="Pesquisar"
             />
           </template>
+          <template slot="top-right">
+            <q-table-columns
+              :color="color"
+              :dark="dark"
+              class="q-mr-sm"
+              v-model="visibleColumns"
+              :columns="columns"
+              label="Colunas"
+            />
+            
+          </template>
           <template slot="body" slot-scope="props">
             <q-tr :props="props" @dblclick.native="openStudyDetail(props.row)">
-              <q-td key="desc" :props="props">
+              <q-td auto-width key="desc" :props="props">
                 <q-checkbox
                   :color="color"
                   v-model="props.expand"
@@ -40,34 +52,55 @@
                   @click.native="fillEmptyInput(props.row)"
                 />
               </q-td>
+              <q-td auto-width>
+                <q-btn
+                  flat
+                  round
+                  :color="color"
+                  icon="open_in_new"
+                  @click="openStudyDetail(props.row)"
+                />
+              </q-td>
               <q-td key="patientid" :props="props">{{ props.row.patientid }}</q-td>
-              <q-td key="paciente" :props="props">{{
+              <q-td key="paciente" :props="props">
+                {{
                 props.row.patientname
-              }}</q-td>
+                }}
+              </q-td>
               <q-td key="sexo" :props="props">{{ props.row.patientsex }}</q-td>
-              <q-td key="nascimento" :props="props">{{
+              <q-td key="nascimento" :props="props">
+                {{
                 dateFormatter(props.row.patientbirthdate)
-              }}</q-td>
+                }}
+              </q-td>
               <q-td key="origem" :props="props">{{ props.row.sitename }}</q-td>
-              <q-td key="descricao" :props="props">{{
+              <q-td key="descricao" :props="props">
+                {{
                 props.row.studydescription
-              }}</q-td>
-              <q-td key="mod" :props="props">{{
+                }}
+              </q-td>
+              <q-td key="mod" :props="props">
+                {{
                 props.row.studymodality
-              }}</q-td>
-              <q-td key="dataExame" :props="props">{{
-                dateFormatter(props.row.studydate) + ' ' +  props.row.studytime
-              }}</q-td>
-              <q-td key="status" :props="props">{{
+                }}
+              </q-td>
+              <q-td key="dataExame" :props="props">
+                {{
+                dateFormatter(props.row.studydate) + ' ' + props.row.studytime
+                }}
+              </q-td>
+              <q-td key="status" :props="props">
+                {{
                 props.row.statusname
-              }}</q-td>
+                }}
+              </q-td>
             </q-tr>
             <q-tr v-show="props.expand" :props="props" class="home">
               <q-td colspan="100%">
                 <div class="row gutter-sm">
                   <div class="col-6">
                     <q-card :color="color">
-                      <q-card-separator />
+                      <q-card-separator/>
                       <q-card-main>
                         <div class="row">
                           <div class="col-12">
@@ -92,7 +125,7 @@
                               dark
                             />
                           </div>
-                          <div class="col-6">
+                          <div class="col-3">
                             <q-input
                               :value="props.row.sitename"
                               stack-label="Origem"
@@ -103,7 +136,7 @@
                               dark
                             />
                           </div>
-                          <div class="col-6">
+                          <div class="col-9">
                             <q-input
                               :value="props.row.studyinstanceuid"
                               stack-label="Estudo"
@@ -154,7 +187,7 @@
                   </div>
                   <div class="col-6">
                     <q-card :color="color">
-                      <q-card-separator />
+                      <q-card-separator/>
                       <q-card-main>
                         <div class="row">
                           <div class="col-12">
@@ -186,8 +219,7 @@
                                 :class="'bg-white text-' + color"
                                 anchor="top left"
                                 self="bottom left"
-                                >Associar Médico</q-tooltip
-                              >
+                              >Associar Médico</q-tooltip>
                             </q-input>
                           </div>
                           <div class="col-6">
@@ -210,8 +242,7 @@
                                 :class="'bg-white text-' + color"
                                 anchor="top left"
                                 self="bottom left"
-                                >Associar Estação de Trabalho</q-tooltip
-                              >
+                              >Associar Estação de Trabalho</q-tooltip>
                             </q-input>
                           </div>
                           <div class="col-12">
@@ -250,18 +281,9 @@
           class="q-mt-xl"
           v-model="doctorModal"
         >
-          <q-modal-layout
-            :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }"
-          >
-            <q-toolbar
-              class="no-shadow"
-              :text-color="color"
-              color="none"
-              slot="header"
-            >
-              <q-toolbar-title
-                :class="{ 'text-grey-10': !dark, 'text-white': dark }"
-              >
+          <q-modal-layout :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
+            <q-toolbar class="no-shadow" :text-color="color" color="none" slot="header">
+              <q-toolbar-title :class="{ 'text-grey-10': !dark, 'text-white': dark }">
                 <div class="row">
                   <div class="col-11 q-py-sm">Médico Responsável</div>
                   <div class="col-1 q-pl-md">
@@ -279,12 +301,7 @@
               </q-toolbar-title>
             </q-toolbar>
 
-            <q-toolbar
-              class="no-shadow"
-              text-color="primary"
-              color="none"
-              slot="footer"
-            >
+            <q-toolbar class="no-shadow" text-color="primary" color="none" slot="footer">
               <q-toolbar-title class="no-shadow">
                 <div class="row justify-center">
                   <q-btn
@@ -358,18 +375,9 @@
           :content-css="{ minWidth: '30vw', minHeight: '50vh' }"
           class="q-mt-xl"
         >
-          <q-modal-layout
-            :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }"
-          >
-            <q-toolbar
-              class="no-shadow"
-              :text-color="color"
-              color="none"
-              slot="header"
-            >
-              <q-toolbar-title
-                :class="{ 'text-grey-10': !dark, 'text-white': dark }"
-              >
+          <q-modal-layout :class="{ 'bg-grey-10': dark, 'bg-white': dark == false }">
+            <q-toolbar class="no-shadow" :text-color="color" color="none" slot="header">
+              <q-toolbar-title :class="{ 'text-grey-10': !dark, 'text-white': dark }">
                 <div class="row">
                   <div class="col-11 q-py-sm">Estação de Trabalho</div>
                   <div class="col-1 q-pl-md">
@@ -387,12 +395,7 @@
               </q-toolbar-title>
             </q-toolbar>
 
-            <q-toolbar
-              class="no-shadow"
-              text-color="primary"
-              color="none"
-              slot="footer"
-            >
+            <q-toolbar class="no-shadow" text-color="primary" color="none" slot="footer">
               <q-toolbar-title class="no-shadow">
                 <div class="row justify-center">
                   <q-btn
@@ -474,6 +477,7 @@
 import { date } from "quasar";
 import {
   columns,
+  visibleColumns,
   tableData,
   columnsDoctorModal,
   tableDataDoctorModal,
@@ -502,7 +506,9 @@ export default {
     workStationModal: false,
     tableData: [],
     tableDataDoctorModal,
-    tableDataWorkStationModal
+    tableDataWorkStationModal,
+    visibleColumns,
+
   }),
   methods: {
     dateFormatter(data) {

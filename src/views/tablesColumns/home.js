@@ -1346,13 +1346,18 @@ module.exports = {
   columns: [
     {
       name: "desc",
-      required: true,
       label: "",
+      required: true,
+      align: "left"
+    },
+    {
+      name: "info",
+      label: "",
+      required: true,
       align: "left"
     },
     {
       name: "patientid",
-      required: true,
       label: "Identificação",
       align: "left",
       field: "patientid",
@@ -1362,7 +1367,6 @@ module.exports = {
     },
     {
       name: "paciente",
-      required: true,
       label: "Paciente",
       align: "left",
       field: "patientname",
@@ -1372,7 +1376,6 @@ module.exports = {
     },
     {
       name: "sexo",
-      required: true,
       label: "Sexo",
       align: "left",
       field: "patientsex",
@@ -1382,7 +1385,6 @@ module.exports = {
     },
     {
       name: "nascimento",
-      required: true,
       label: "Nascimento",
       align: "left",
       field: "patientbirthdate",
@@ -1392,7 +1394,6 @@ module.exports = {
     },
     {
       name: "origem",
-      required: true,
       label: "Origem",
       align: "left",
       field: "sitename",
@@ -1402,7 +1403,6 @@ module.exports = {
     },
     {
       name: "descricao",
-      required: true,
       label: "Descrição do Exame",
       align: "left",
       field: "studydescription",
@@ -1412,7 +1412,6 @@ module.exports = {
     },
     {
       name: "mod",
-      required: true,
       label: "Mod.",
       align: "left",
       field: "studymodality",
@@ -1422,7 +1421,6 @@ module.exports = {
     },
     {
       name: "dataExame",
-      required: true,
       label: "Data do Exame",
       align: "left",
       field: "reportcreationdate",
@@ -1432,7 +1430,6 @@ module.exports = {
     },
     {
       name: "status",
-      required: true,
       label: "Status",
       align: "left",
       field: "statusname",
@@ -1441,6 +1438,7 @@ module.exports = {
       style: "width: 500px"
     }
   ],
+  visibleColumns: ['desc', 'info', 'patientid', 'paciente', 'sexo', 'nascimento', 'origem', 'origem', 'descricao', 'mod', 'dataExame', 'status'],
   columnsDoctorModal: [
     {
       name: "id",

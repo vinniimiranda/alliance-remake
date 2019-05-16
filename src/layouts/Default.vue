@@ -91,10 +91,10 @@
                 <div class="col-4 q-pt-sm">
                   <q-btn color="deep-orange-7" @click.native="setColor('deep-orange-7')"></q-btn>
                 </div>
-                <div class="col-10 q-pt-sm">
+                <!-- <div class="col-10 q-pt-sm">
                     <q-color-picker v-model="colorHex" />
                     
-                </div>
+                </div> -->
               </div>
             </q-item-main>
           </q-item>
