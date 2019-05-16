@@ -57,6 +57,7 @@
                 <q-checkbox
                   v-if="col.name== 'desc'"
                   :color="color"
+                  
                   v-model="props.expand"
                   checked-icon="keyboard_arrow_up"
                   unchecked-icon="keyboard_arrow_down"
@@ -519,7 +520,7 @@ export default {
         this.loading = false;
       }, 500);
     },
-    changeColumnOrder(columnName) {
+    changeColumnOrder() {
       this.columns.sort((a, b) => {
         if ( (b.name != "desc" && b.name != "info")) {
           return -1;
