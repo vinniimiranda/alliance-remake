@@ -18,6 +18,11 @@ export default new Router({
           component: () => import("./views/Home.vue")
         },
         {
+          path: "/study",
+          name: "study",
+          component: () => import("./views/Study.vue")
+        },
+        {
           path: "/exame/:id",
           name: "exame",
           // props: route => ({

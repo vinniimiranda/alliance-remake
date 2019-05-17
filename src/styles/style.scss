@@ -1,0 +1,57 @@
+.animated {
+  /* transition: all 0.05s; */
+}
+
+.left-text-icon {
+  position: relative;
+  top: -2.5rem;
+  margin-left: 3rem !important;
+}
+
+#viewer {
+  height: 100%;
+}
+
+body {
+  background-image: url("../assets/bg.svg") !important;
+  background-size: 20rem !important;
+  background-blend-mode: multiply;
+  animation: draw 1400ms ease-in-out 4ms forwards;
+}
+
+.q-layout-footer,
+.q-layout-header {
+  box-shadow: none !important;
+}
+.selectedRow {
+  color: #ffffff !important;
+  font-weight: bold !important;
+
+  .q-checkbox-icon {
+    color: #ffffff !important;
+  }
+}
+.home {
+  .q-if-label,
+  .q-if-addon,
+  .q-if-control {
+    color: #fff;
+    line-height: 24px;
+  }
+}
+
+.logoLogin {
+  width: 25rem !important;
+}
+.footerLogo {
+  width: 10%;
+  height: 20%;
+  margin: auto;
+}
+
+.bg-image {
+  background-image: url("../assets/bg.svg") !important;
+  background-size: 20rem !important;
+  background-blend-mode: multiply;
+  transition: all 0.4s;
+}

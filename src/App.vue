@@ -4,18 +4,13 @@
   </div>
 </template>
 
-<style>
-body {
-  background-image: url("./assets/bg.svg") !important;
-  background-size: 20rem !important;
-  background-blend-mode: multiply;
-  animation: draw 1400ms ease-in-out 4ms forwards;
-}
-</style>
+
 
 <script>
+import "./styles/style.scss";
 export default {
   beforeMount() {
+
     let body = document.getElementById("body");
     let classList = body.classList;
     if (this.$store.getters.getDarken) {

@@ -23,7 +23,7 @@
                 :class="'bg-white text-' + color"
                 anchor="top left"
                 
-                >Tela toda
+                >Tela cheia
               </q-tooltip>
             </q-btn>
           </span>
@@ -75,7 +75,7 @@
             :glossy="glossy"
             align="justify"
           >
-                <q-tab
+            <q-tab
               default
               name="patient"
               slot="title"
@@ -84,92 +84,113 @@
             />
             
             <q-tab-pane name="patient">
-              <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
-                  <q-input
-                    :dark="dark"
-                    :value="exam.patientid + ' - ' + exam.patientname"
-                    stack-label="Paciente"
-                    :before="[{ icon: 'person', handler() {} }]"
-                    readonly
-                  />
+               <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
+                    <div>
+                      <div :class="{ 'text-grey-8': !dark, 'text-white': dark }">
+                        <q-icon name="person" size="2.3rem"></q-icon>
+                      </div>
+                      <div :class="{ 'text-grey-10': !dark, 'text-white': dark }" class="left-text-icon">
+                        <div>Paciente</div>
+                        <div>{{ exam.patientid }} - {{ exam.patientname }}</div>
+                        <hr style="width:90%; float:left">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
+                    <div>
+                      <div :class="{ 'text-grey-8': !dark, 'text-white': dark }">
+                        <q-icon name="assignment" size="2.3rem"></q-icon>
+                      </div>
+
+                      <div :class="{ 'text-grey-10': !dark, 'text-white': dark }" class="left-text-icon">
+                        <div>Exame</div>
+                        <div>{{ exam.studydescription}}</div>
+                        <hr style="width:90%; float:left">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div>
+                      <div :class="{ 'text-grey-8': !dark, 'text-white': dark }">
+                        <q-icon name="event" size="2.3rem"></q-icon>
+                      </div>
+
+                      <div :class="{ 'text-grey-10': !dark, 'text-white': dark }" class="left-text-icon">
+                        <div>Nascimento</div>
+                        <div>
+                          {{ dateFormatter(exam.patientbirthdate) +
+                          ' - ' +
+                          exam.patientage +
+                          ' anos' }}
+                        </div>
+                        <hr style="width:90%; float:left">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div>
+                      <div :class="{ 'text-grey-8': !dark, 'text-white': dark }">
+                        <q-icon name="local_hospital" size="2.3rem"></q-icon>
+                      </div>
+
+                      <div :class="{ 'text-grey-10': !dark, 'text-white': dark }" class="left-text-icon">
+                        <div>Identificação</div>
+                        <div>{{ exam.patientbirthdate }}</div>
+                        <hr style="width:90%; float:left">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div>
+                      <div :class="{ 'text-grey-8': !dark, 'text-white': dark }">
+                        <q-icon name="perm_contact_calendar" size="2.3rem"></q-icon>
+                      </div>
+
+                      <div :class="{ 'text-grey-10': !dark, 'text-white': dark }" class="left-text-icon">
+                        <div>Sexo</div>
+                        <div>{{ exam.patientsex }}</div>
+                        <hr style="width:90%; float:left">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div>
+                      <div :class="{ 'text-grey-8': !dark, 'text-white': dark }">
+                        <q-icon name="date_range" size="2.3rem"></q-icon>
+                      </div>
+                      <div :class="{ 'text-grey-10': !dark, 'text-white': dark }" class="left-text-icon">
+                        <div>Data do Estudo</div>
+                        <div>{{ dateFormatter(exam.studydate) }}</div>
+                        <hr style="width:90%; float:left">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div>
+                      <div :class="{ 'text-grey-8': !dark, 'text-white': dark }">
+                        <q-icon name="wc" size="2.3rem"></q-icon>
+                      </div>
+                      <div :class="{ 'text-grey-10': !dark, 'text-white': dark }" class="left-text-icon">
+                        <div>Executado por</div>
+                        <div>{{ exam.perfphyfullname || 'NÃO INFORMADO' }}</div>
+                        <hr style="width:90%; float:left">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div>
+                      <div :class="{ 'text-grey-8': !dark, 'text-white': dark }">
+                        <q-icon name="business" size="2.3rem"></q-icon>
+                      </div>
+                      <div :class="{ 'text-grey-10': !dark, 'text-white': dark }" class="left-text-icon">
+                        <div>Origem</div>
+                        <div>{{ exam.workstationname || 'NÃO INFORMADO' }}</div>
+                        <hr style="width:90%; float:left">
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
-                  <q-input
-                    :dark="dark"
-                    :value="exam.studydescription"
-                    stack-label="Exame"
-                    :before="[{ icon: 'assignment', handler() {} }]"
-                    readonly
-                    class="text-primary"
-                  />
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                  <q-input
-                    :value="
-                      dateFormatter(exam.patientbirthdate) +
-                        ' - ' +
-                        exam.patientage +
-                        ' anos'
-                    "
-                    :color="color"
-                    :dark="dark"
-                    stack-label="Nascimento"
-                    :before="[{ icon: 'event', handler() {} }]"
-                    readonly
-                  />
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                  <q-input
-                    :color="color"
-                    :dark="dark"
-                    :value="exam.accessionnumber"
-                    stack-label="Identificação"
-                    :before="[{ icon: 'local_hospital', handler() {} }]"
-                    readonly
-                  />
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                  <q-input
-                    :color="color"
-                    :dark="dark"
-                    :value="exam.patientsex"
-                    stack-label="Sexo"
-                    :before="[{ icon: 'perm_contact_calendar', handler() {} }]"
-                    readonly
-                  />
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                  <q-input
-                    :color="color"
-                    :dark="dark"
-                    :value="dateFormatter(exam.studydate)"
-                    stack-label="Data do Estudo"
-                    :before="[{ icon: 'date_range', handler() {} }]"
-                    readonly
-                  />
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                  <q-input
-                    :color="color"
-                    :dark="dark"
-                    :value="exam.perfphyfullname || 'NÃO INFORMADO'"
-                    stack-label="Executado por"
-                    :before="[{ icon: 'wc', handler() {} }]"
-                    readonly
-                  />
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                  <q-input
-                    :color="color"
-                    :dark="dark"
-                    :value="exam.workstationname || 'NÃO INFORMADO'"
-                    stack-label="Origem"
-                    :before="[{ icon: 'business', handler() {} }]"
-                    readonly
-                  />
-                </div>
-              </div>
             </q-tab-pane>
           </q-tabs>
           <br />
@@ -521,7 +542,7 @@
               <q-tooltip
                 :class="'bg-white text-' + color"
                 anchor="top left"
-                >Tela toda
+                >Tela cheia
               </q-tooltip>
             </q-btn>
           </span>
@@ -537,11 +558,11 @@
                 name="person_pin"
               />
               </q-btn></div> 
-             <div id="patientInfoViewer"  :class="{ 'text-grey-10': !dark, 'text-white': dark }" > 
+             <div class="left-text-icon"  :class="{ 'text-grey-10': !dark, 'text-white': dark }" > 
               
             {{ exam.patientid }} - {{ exam.patientname }}
             </div>
-            <div id="examInfoViewer" :class="{ 'text-grey-10': !dark, 'text-white': dark }">  {{ exam.studydescription }} -AN:{{ exam.accessionnumber }}</div>
+            <div class="left-text-icon" :class="{ 'text-grey-10': !dark, 'text-white': dark }">  {{ exam.studydescription }} -AN:{{ exam.accessionnumber }}</div>
             
           </div>
           <!-- Viewer {{ exam.webviewerurl }} -->
@@ -557,6 +578,7 @@
 </template>
 <script>
 import { date } from "quasar";
+import { mapActions, mapGetters } from "vuex";
 import {
   columns,
   columnsReports,
@@ -618,15 +640,12 @@ export default {
     }
   },
   computed: {
-    color() {
-      return this.$store.getters.getColor;
-    },
-    glossy() {
-      return this.$store.getters.getGlossy;
-    },
-    dark() {
-      return this.$store.getters.getDarken;
-    }
+     ...mapGetters({
+      color: "getColor",
+      glossy: "getGlossy",
+      dark: "getDarken"
+    })
+
   },
   data() {
     return {
@@ -677,22 +696,4 @@ export default {
   }
 };
 </script>
-<style>
-.animated {
-  /* transition: all 0.05s; */
-}
-#patientInfoViewer, #examInfoViewer{
-  position: relative;
-  top: -3rem;
-  margin-left: 3.3rem !important;
-  
 
-}
-
-#viewer{
-  height: 100%;  
-}
-*{
-  /* font-size: 0.91rem; */
-}
-</style>

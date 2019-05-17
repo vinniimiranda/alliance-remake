@@ -1365,7 +1365,6 @@ module.exports = {
       field: "patientid",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px",
       index:2
     },
     {
@@ -1374,8 +1373,8 @@ module.exports = {
       align: "left",
       field: "patientname",
       sortable: true,
+      sort: (a, b, rowA, rowB) => parseInt(a, 10) - parseInt(b, 10),
       classes: "my-class",
-      style: "width: 500px",
       index:3
     },
     {
@@ -1385,7 +1384,6 @@ module.exports = {
       field: "patientsex",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px",
       index:4
     },
     {
@@ -1395,7 +1393,6 @@ module.exports = {
       field: "patientbirthdate",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px",
       index: 5
     },
     {
@@ -1405,7 +1402,6 @@ module.exports = {
       field: "sitename",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px",
       index: 6,
     },
     {
@@ -1415,7 +1411,6 @@ module.exports = {
       field: "studydescription",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px",
       index: 7
     },
     {
@@ -1425,7 +1420,6 @@ module.exports = {
       field: "studymodality",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px",
       index: 8,
     },
     {
@@ -1435,7 +1429,6 @@ module.exports = {
       field: "studydate",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px",
       index: 9
     },
     {
@@ -1445,7 +1438,6 @@ module.exports = {
       field: "statusname",
       sortable: true,
       classes: "my-class",
-      style: "width: 500px",
       index: 10
     }
   ],

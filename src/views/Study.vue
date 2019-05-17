@@ -18,7 +18,7 @@
           align="justify"
           :visible-columns="visibleColumns"
           :pagination.sync="pagination"
-          :rows-per-page-options="[5, 10, 20, 50, 100, 0]"
+          :rows-per-page-options="[10, 20, 50, 100, 0]"
         >
           <template slot="top-left">
             <q-search
@@ -45,13 +45,13 @@
               @click="changeColumnOrder(null, null, 'none')"
             ></q-btn>
           </template>
-          <!-- <q-tr slot="header" slot-scope="props" :props="props" >
+          <q-tr slot="header" slot-scope="props" :props="props" >
             <q-th  v-for="(col, index) in props.cols " :key="col.name" :class="col.__thClass" class="sortable"> 
               <q-btn icon="arrow_left" v-if="col.name != 'desc' && col.name != 'info' " flat round  size="sm" @click="changeColumnOrder(col, props.cols[index-1], 'left')" />
               <span style="font-size:.7rem;">{{ col.label  }} </span>
               <q-btn icon="arrow_right" v-if="col.name != 'desc' && col.name != 'info' " flat round  size="sm" @click="changeColumnOrder(col, props.cols[index+1], 'right') " />
                </q-th>
-          </q-tr>-->
+          </q-tr>
           <template slot="body" slot-scope="props">
             <q-tr
               :props="props"
@@ -498,7 +498,8 @@ export default {
     dateFormatter(data) {
       return date.formatDate(data, "DD/MM/YYYY");
     },
-    
+    // lineClickEvent(event) {},
+
     openStudyDetail(row) {
       this.$router.push({
         name: "exame",
@@ -520,7 +521,7 @@ export default {
         });
 
         this.loading = false;
-      }, 2000);
+      }, 500);
     },
     changeColumnOrder(atual, anterior, side) {
       this.columns.sort((a, b) => {

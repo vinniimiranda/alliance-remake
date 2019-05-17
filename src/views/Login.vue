@@ -20,7 +20,7 @@
                     :color="color"
                     v-model="email"
                     type="email"
-                    float-label="Email"
+                    float-label="E-mail"
                     :dark="dark"
                     required
                   />
@@ -34,7 +34,7 @@
                     :color="color"
                     v-model="password"
                     type="password"
-                    float-label="Password"
+                    float-label="Senha"
                     :dark="dark"
                     required
                   />
@@ -48,7 +48,7 @@
                 <q-field error-label="We need a valid email">
                   <q-select
                     :color="color"
-                    float-label="Workstation"
+                    float-label="Estação de trabalho"
                     required
                     v-model="workStation"
                     :dark="dark"
@@ -81,66 +81,38 @@
         </q-card-main>
       </q-card>
     </div>
-    <!-- <q-layout>
-      <q-layout-footer :class="{'bg-black' : dark, 'bg-white' : !dark}">
-        <div class="row q-my-sm">
-          <img src="../assets/Logomarca_Biower_3.png" class="footerLogo">
-          
-        </div>
-      </q-layout-footer>
-    </q-layout>-->
   </div>
 </template>
 
-<style lang="scss">
-.logoLogin {
-  width: 25rem !important;
-}
-.footerLogo {
-  width: 10%;
-  height: 20%;
-  margin: auto;
-}
-
-.bg-image {
-  background-image: url("../assets/bg.svg") !important;
-  background-size: 20rem !important;
-  background-blend-mode: multiply;
-  transition: all 0.4s;
-}
-</style>
-
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Login",
   data() {
     return {
-      email: "flavio.miranda@wtt.com.br",
-      password: "12345678",
-      workStation: "goog",
+      email: "",
+      password: "",
+      workStation: "",
       buttonLoading: false,
       selectOptions: [
         {
-          label: "Google",
+          label: "SALA USG 01 - LAUDOS",
           value: "goog"
         },
         {
-          label: "Facebook",
+          label: "SALA USG 03 - TERREO",
           value: "fb"
         }
       ]
     };
   },
   computed: {
-    color() {
-      return this.$store.getters.getColor;
-    },
-    glossy() {
-      return this.$store.getters.getGlossy;
-    },
-    dark() {
-      return this.$store.getters.getDarken;
-    }
+    ...mapGetters({
+      color: "getColor",
+      glossy: "getGlossy",
+      dark: "getDarken"
+    })
+    
   },
   methods: {
     login() {
@@ -149,7 +121,7 @@ export default {
         this.buttonLoading = false;
         if (this.workStation == "") {
           this.$q.notify({
-            message: "You need select a workstation",
+            message: "Selecione uma estação de trabalho",
             timeout: 3000,
             type: "warning",
             color: "warning",
@@ -176,7 +148,7 @@ export default {
           });
         } else {
           this.$q.notify({
-            message: "Logged in successfully",
+            message: "Logado com sucesso",
             timeout: 3000,
             type: "positive",
             color: "postive",
@@ -185,11 +157,13 @@ export default {
           this.$router.push({ name: "home" });
         }
       }, 2500);
-      // }
-
-      // this.buttonLoading = false;
-      // }, 3500);
     }
   }
 };
 </script>
+
+<style>
+.bg-image{
+  background-image: url("../assets/bg.svg") !important;
+}
+</style>
